@@ -382,6 +382,31 @@
             </table>
         </div>
 
+
+        <div class="row posm">
+            <h3>POSM</h3>
+            <table id="posm" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Active KCP (Top up >= Rp 200,000)</th>
+                        <th>Incentive Per Acquisition</th>
+                        <th>Incentive Amount</th>
+                        <th class="kolom7">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?php// echo $jumlah_acq; ?></td>
+                        <td><?php// echo "Rp ".number_format(45000,2,",","."); ?></td>
+                        <td><?php// echo "Rp ".number_format(($total_insentif_acq),2,",","."); ?></td>
+                        <td>
+                            <button onclick="document.getElementById('modal-acq').style.display='block'" type="button" class="btn btn-default btn-xs navbar-btn btn-detail">Detail</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         
     </div>
 </div>
