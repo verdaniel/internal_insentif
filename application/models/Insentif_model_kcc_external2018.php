@@ -7,20 +7,18 @@ class Insentif_model_kcc_external2018 extends CI_Model{
     function get_active_kcp($dist_id, $bulan, $tahun)
     {
         $query = $this->db->query("SELECT 
-            p.retailerid, p.amount, c.first_name, c.last_name
+            p.retailerid,
+            SUM(p.amount) AS total,
+            c.first_name,
+            c.last_name
         FROM
             ipay_retailer_daily_payments p
                 INNER JOIN
             ipay_retailer c ON p.retailerid = c.retailer_id
-                INNER JOIN
-            (SELECT 
-                MIN(id) AS ids
-            FROM
-                ipay_retailer_daily_payments
-            GROUP BY retailerid) t1 ON t1.ids = p.id
+                AND p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
                 AND c.distributer_id = '".$dist_id."'
-                AND c.status = 1
-        HAVING amount > '200000'"
+        GROUP BY p.retailerid
+        HAVING total >= 200000"
         );
         $q_result= $query->result_array();
         
@@ -33,7 +31,6 @@ class Insentif_model_kcc_external2018 extends CI_Model{
 
     function get_new_acquisition_tu($dist_id, $bulan, $tahun)
     {
-        
         $query = $this->db->query("SELECT 
         p.retailerid, p.amount,c.first_name, c.last_name
         FROM

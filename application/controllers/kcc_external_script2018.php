@@ -1,16 +1,10 @@
 <?php
 // ############# Akuisisi #############
+$data['incentive_acq'] = 100000;
+
 $returned_active_kcp = $this->Insentif_model_kcc_external2018->get_active_kcp($Dist_id, $bulan, $tahun);
 $data['active_kcp']= $returned_active_kcp[0];
-
-// kasih nilai default jika hasil query "get_active_kcp" null
-if($returned_active_kcp != null){
-    //new acq initial deposit >= 200rb
-    $data['active_kcp']= $returned_active_kcp[1];
-}
-else { //jika tidak ada yang diakuisisi >=200rb bulan ini
-    $data['active_kcp']= 0;
-}
+$data['jumlah_active_kcp']= $returned_active_kcp[1];
 
 $returned_new_acq = $this->Insentif_model_kcc_external2018->get_new_acquisition_tu($Dist_id, $bulan, $tahun);
 $data['acq']= $returned_new_acq[0];
@@ -63,7 +57,7 @@ else{
 
 // jika kcp aktif < 50, tidak diberikan insentif
 if ($data['active_kcp']>= 50) {
-    $data['total_insentif_acq']= $data['net_acq_calc']*45000;
+    $data['total_insentif_acq']= $data['net_acq_calc']*$data['incentive_acq'];
 }
 else {
     $data['total_insentif_acq']=0;
