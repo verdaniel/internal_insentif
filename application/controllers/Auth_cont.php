@@ -7,6 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // 2 => ASM
 // 3 => internal
 // 4 => eksternal
+// 5 => super KCC
 
 
 

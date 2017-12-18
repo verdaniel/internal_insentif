@@ -129,7 +129,14 @@ for ($i=0; $i <count($data['cvs_returned']) ; $i++) {
     // mekanisme untuk buat array TU 
     // note: jika TRX-MT > 30% TU-raw: nilai TU-actual = TU-raw dikurang TRX-MT
     if ($data['cvs_trx_mt'][$i]['trx_money_transfer']!=0) {
-        $persentase_mt= $data['cvs_trx_mt'][$i]['trx_money_transfer']/$data['cvs_tu_raw_returned'][$i]['topup'];
+
+        if(empty($data['cvs_tu_raw_returned'][$i]['topup'])){
+            $persentase_mt=1;
+        }
+        else{
+            $persentase_mt= $data['cvs_trx_mt'][$i]['trx_money_transfer']/$data['cvs_tu_raw_returned'][$i]['topup'];
+        }
+        
         if($persentase_mt>0.3){
             $actual=$data['cvs_tu_raw_returned'][$i]['topup']-$data['cvs_trx_mt'][$i]['trx_money_transfer']-$data['cvs_tu_negative_balance_returned'][$i]['tu_negative_balance'];
             $data['cvs_tu_actual_returned'][$i]=['beatguy_id'=>$data['cvs_tu_raw_returned'][$i]['beatguy_id'], 'tu_actual'=>$actual];
@@ -150,19 +157,6 @@ for ($i=0; $i <count($data['cvs_returned']) ; $i++) {
         $data['cvs_tu_achieve_returned'][$i]=['beatguy_id'=>$data['cvs_tu_raw_returned'][$i]['beatguy_id'], 'topup'=>$achieve];
     }
 }
-
-
-// echo "TU raw = ";
-// print_r($data['cvs_tu_raw_returned']);
-// echo "<br><br>TU negative = ";
-// print_r($data['cvs_tu_negative_balance_returned']);
-// echo "<br><br>TU actual = ";
-// print_r($data['cvs_tu_actual_returned']);
-// echo "<br><br>TRX MT = ";
-// print_r($data['cvs_trx_mt']);
-
-
-
 
 // ############# bagian USPR ###################
 $data['cvs_uspr_actual_returned']= $this->Insentif_model_kcc_internal->get_cvs_uspr($bulan, $tahun, $kcc_internal_selected);
