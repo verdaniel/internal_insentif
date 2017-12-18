@@ -27,7 +27,6 @@ class Insentif_model_kcc_external2018 extends CI_Model{
 
         $result=[];
         array_push($result, $q_result, $jumlah_KCP);
-        print_r($q_result);
         return $result;
     }
 

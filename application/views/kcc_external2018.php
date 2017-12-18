@@ -24,7 +24,7 @@
                     <?php } ?>
                 </select>
 
-<!-- $$$$ buat next $$$$ -->
+                <!-- $$$$ buat next $$$$ -->
                 <!-- <select name="Tahun" id="Tahun" onchange="this.form.submit()" class="form">
                     <?php //for($i=2017; $i<=date('Y'); $i++) {?>
                         <option <?php //if($i == $tahun){ echo 'selected'; } ?> value="<?php //echo $i; ?>"><?php //echo $i; ?></option>
