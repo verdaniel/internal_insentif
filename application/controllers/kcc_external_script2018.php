@@ -133,3 +133,8 @@ $data['insentif_unique_topup']=$insentif_unique_topup;
 $data['total_insentif_utama_topup']=array_sum($array_insentif_utama_topup);
 $data['total_insentif_unique_topup']=array_sum($insentif_unique_topup);
 $data['total_insentif_topup']= $data['total_insentif_unique_topup']+$data['total_insentif_utama_topup'];
+
+// ############# POSM #############
+$data['insentif_posm']= 7500;
+
+$data['total_insentif_posm']= $data['insentif_posm']*$data['jumlah_active_kcp'];

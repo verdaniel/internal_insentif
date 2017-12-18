@@ -8,6 +8,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
     {
         $query = $this->db->query("SELECT 
             p.retailerid,
+            count(p.retailerid) AS freq,
             SUM(p.amount) AS total,
             c.first_name,
             c.last_name
@@ -26,6 +27,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
 
         $result=[];
         array_push($result, $q_result, $jumlah_KCP);
+        print_r($q_result);
         return $result;
     }
 

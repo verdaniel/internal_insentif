@@ -396,11 +396,11 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><?php// echo $jumlah_acq; ?></td>
-                        <td><?php// echo "Rp ".number_format(45000,2,",","."); ?></td>
-                        <td><?php// echo "Rp ".number_format(($total_insentif_acq),2,",","."); ?></td>
+                        <td><?php echo $jumlah_active_kcp; ?></td>
+                        <td><?php echo "Rp ".number_format($insentif_posm,0,",","."); ?></td>
+                        <td><?php echo "Rp ".number_format(($total_insentif_posm),0,",","."); ?></td>
                         <td>
-                            <button onclick="document.getElementById('modal-acq').style.display='block'" type="button" class="btn btn-default btn-xs navbar-btn btn-detail">Detail</button>
+                            <button onclick="document.getElementById('modal-active-tu').style.display='block'" type="button" class="btn btn-default btn-xs navbar-btn btn-detail">Detail</button>
                         </td>
                     </tr>
                 </tbody>

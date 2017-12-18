@@ -28,7 +28,7 @@
                                             <td><?php echo $nomor; ?></td>
                                             <td><?php echo $a['retailerid']." - ".$a['first_name']." ".$a['last_name']; ?></td>
                                             <td>
-                                                <?php echo "Rp ".number_format($a['amount'],2,",","."); ?>
+                                                <?php echo "Rp ".number_format($a['amount'],0,",","."); ?>
                                             </td>   
                                         </tr>
                                     <?php } ?>
@@ -93,7 +93,7 @@
                                             <td><?php echo $tu['retailerid']." - ".$tu['first_name']." ".$tu['last_name']; ?></td>
                                             <td><?php echo $tu['dateofpayment']; ?></td>
                                             <td>
-                                                <?php echo "Rp ".number_format($tu['amount'],2,",","."); ?>
+                                                <?php echo "Rp ".number_format($tu['amount'],0,",","."); ?>
                                             </td>   
                                         </tr>
                                     <?php } ?>
@@ -249,6 +249,50 @@
                                             <td>
                                                 <?php echo "Pulsa"; ?>
                                             </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= modal aktif topup (yang akumulasi topup sebulan >=200rb) ======= -->
+    <div class="w3-container modal_active_tu">
+        <div id="modal-active-tu" class="w3-modal w3-animate-opacity"> <!-- class="w3-modal w3-animate-opacity" -->
+            <div class="w3-modal-content w3-card-4">
+                <header class="w3-container w3-orange modal-campaign modal1">
+                    <span onclick="document.getElementById('modal-active-tu').style.display='none'" class="w3-button w3-large w3-display-topright w3-xbtn">&times;</span>
+                    <h2>KCP Active</h2>
+                </header>
+                <!-- konten modal -->
+                <div class="w3-container">
+                    <div class="row">
+                        <!-- tabel -->
+                        <div class="col-md-12">
+                            <table id="topup" class="table table-bordered table-hover datatable">
+                                <thead>
+                                    <tr>
+                                        <th class="kolom_no">No</th>
+                                        <th>KCP</th>
+                                        <th>Qty</th>
+                                        <th>Top Up Accumulation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $nomor=0; ?>
+                                    <?php foreach ($active_kcp as $kcp) { ?>
+                                        <?php $nomor++; ?>
+                                        <tr>
+                                            <td><?php echo $nomor; ?></td>
+                                            <td><?php echo $kcp['retailerid']." - ".$kcp['first_name']." ".$kcp['last_name']; ?></td>
+                                            <td><?php echo $kcp['freq']; ?></td>
+                                            <td>
+                                                <?php echo "Rp ".number_format($kcp['total'],0,",","."); ?>
+                                            </td>   
                                         </tr>
                                     <?php } ?>
                                 </tbody>
