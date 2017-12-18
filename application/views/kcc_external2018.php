@@ -389,7 +389,7 @@
                 <thead>
                     <tr>
                         <th>Active KCP (Top up >= Rp 200,000)</th>
-                        <th>Incentive Per Acquisition</th>
+                        <th>Incentive POSM</th>
                         <th>Incentive Amount</th>
                         <th class="kolom7">Action</th>
                     </tr>
