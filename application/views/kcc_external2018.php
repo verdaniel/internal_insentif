@@ -396,9 +396,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><?php// echo $jumlah_acq; ?></td>
-                        <td><?php// echo "Rp ".number_format(45000,2,",","."); ?></td>
-                        <td><?php// echo "Rp ".number_format(($total_insentif_acq),2,",","."); ?></td>
+                        <td><?php echo $jumlah_acq; ?></td>
+                        <td><?php echo "Rp ".number_format(7500,2,",","."); ?></td>
+                        <td><?php echo "Rp ".number_format(($total_insentif_acq),2,",","."); ?></td>
                         <td>
                             <button onclick="document.getElementById('modal-acq').style.display='block'" type="button" class="btn btn-default btn-xs navbar-btn btn-detail">Detail</button>
                         </td>
