@@ -1,0 +1,257 @@
+/* ################ loading spinner ################## */
+
+
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+
+/* ################ login ################## */
+body{
+  background-color: rgb(250, 250, 250);
+}
+
+.loginform{
+    
+    border: 2px solid #ede8e8;
+    padding: 20px;
+
+    box-shadow: 0px 0px 10px 0px grey;
+    width: 100%;
+    background-color: white;
+    
+}
+
+  #btn-search{
+    height:35px;
+    background: #ff9800;
+    color:#fff;
+  }
+  .form-group { 
+  position: relative; 
+  }
+
+  /* style icon */
+  .form-group .glyphicon {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+  }
+
+  /* align icon */
+  .left-addon .glyphicon  { left:  0px;}
+  .right-addon .glyphicon { right: 0px;}
+
+  /* add padding  */
+  .left-addon input  { padding-left:  30px; }
+  .right-addon input { padding-right: 30px; }
+  
+  
+  .btn-login {
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    background: #ff9800;
+    color:#fff;
+    -webkit-transition: all 0.5s ease;
+    -webkit-appearance: none;
+    width: 100%;
+    height:50px;
+  }
+
+  .btn:hover, .btn:focus {
+    background: #bbbbbb;
+  }
+  #username{
+    background:#ede8e8;
+    height:40px;
+  }
+  #password{
+    background:#ede8e8;
+    height:40px;
+  }
+  .formnya{
+    padding: 8% ;
+    
+    top:36%;
+  }
+
+  /* ########################### main view ##########################*/
+  
+  #myDiv {
+    display: none;
+  }
+  .konten-cvs{
+    width:100%;
+    height:600px;
+    /* overflow-y:auto; */
+    overflow-x:auto;
+  }
+  
+  .row{ 
+    margin-left: 0px;
+    margin-right: 0px;
+  }  
+  .pil{
+    background-color: #ff9800;
+  }
+  .kontener{
+    margin: 0px 50px;
+  }
+  table{
+    text-align: center;
+  }
+  table th{
+    text-align: center;
+  }
+  th{
+    background-color: #ff9800;
+    color:#fff
+  }
+  .kolom1 {
+    width: 260px;
+  }
+  .kolom2 {
+    width: 350px;
+  }
+  .kolom3 {
+    width: 121px;
+  }
+  .kolom4 {
+    width: 200px;
+  }
+  .kolom5 {
+    width: 100px;
+  }
+  .kolom7 {
+    width: 100px;
+  }
+
+  .btn-logout {
+    font-size: 20px;
+    /* font-weight: bold; */
+    text-transform: uppercase;
+    background: #ff9800;
+    color:#fff;
+    -webkit-transition: all 0.5s ease;
+    -webkit-appearance: none;
+    margin: 15px;
+    margin-top: 7px;
+  }
+  .btn-detail {
+    font-weight: bold;
+    text-transform: uppercase;
+    background: #ff9800;
+    color:#fff;
+    -webkit-transition: all 0.5s ease;
+    -webkit-appearance: none;
+    margin: 0px!important;
+  }
+  .topper{
+    margin-bottom: 40px;
+  }
+  .kolom_no{
+    width: 30px!important;
+  }
+
+  /* mainview khusus view retailer2018 */
+  .abu{
+    background-color: lightgray;
+  }
+  .box-biru{
+    background-color: #2196F3;
+    color:#fff
+  }
+  .text-bold{
+    font-weight: bold;
+  }
+  .tanggal{
+    font-weight: bold;
+    color: #ff9800;
+  }
+  .insentif_unique_topup{
+    font-weight: bold;
+  }
+  .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #fff;
+    background-color: #ff9800;
+  }
+  .nav-pills li{
+    height: 20px;
+    margin-left:15px;
+    margin-top: 8px; 
+  }
+  #mode-selector{
+    width: 40%;
+  }
+  #search-button{
+    margin-left: 15px;
+    color: #fff;
+    background-color: #ff9800;
+    border-color: #ff9800;
+  }
+  .nav-pills>li>a {
+    border-radius: 4px;
+    border: solid 0.5px #ff9800;
+  }
+  .selector-bar{
+    padding: 5px 25px;
+    margin: 10px;
+    border-radius: 4px;
+    background-color: palegoldenrod;
+    border: solid 0.5px #ff9800;
+  }
+
+  /* .nav>li>a{
+    
+  } */
+  /* .nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    width: 100px;
+} */
