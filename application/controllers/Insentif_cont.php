@@ -31,7 +31,7 @@ class Insentif_cont extends CI_Controller {
             redirect("insentif_cont/kcc_externalss");
         }
 
-         // External self login
+         // super kcc self login
          else if($_SESSION['authority']== 5){
             $data['mode'] = "superkccss";
             redirect("insentif_cont/kcc_superss");
