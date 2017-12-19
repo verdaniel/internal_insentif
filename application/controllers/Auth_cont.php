@@ -52,6 +52,9 @@ class Auth_cont extends CI_Controller {
 					else if ($_SESSION['authority']==2) {
 						$_SESSION['identity'] = "ASM";
 					}
+					else if ($_SESSION['authority']==5) {
+						$_SESSION['identity'] = "Super_KCC";
+					}
 					else {
 						$_SESSION['identity'] = $user_data->username;
 					}
