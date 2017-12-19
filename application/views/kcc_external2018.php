@@ -7,45 +7,40 @@
             echo "Time of Data Retrieval: ".date('d-m-Y')." ".date('H:i:s'); 
         ?>
     </div>
-    <div class="row topper">
-        <div class="col-md-3" style="padding:0px; margin-top:30px; font-size:20px">
-            TOTAL INCENTIVE AMOUNT
-            <form method="post" accept-charset="utf-8" action="<?php echo site_url("insentif_cont/kcc_external"); ?>">
-                Month :
-                <select name="Bulan" id="Bulan" onchange="this.form.submit()" class="form">
-                    <?php for($i=1; $i<13; $i++) {?>
-                        <option <?php if($i == $bulan){ echo 'selected'; } ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                    <?php } ?>
-                </select>
-                Year :  
-                <select name="Tahun" id="Tahun" onchange="this.form.submit()" class="form">
-                    <?php for($i=2017; $i<=2018; $i++) {?>
-                        <option <?php if($i == $tahun){ echo 'selected'; } ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                    <?php } ?>
-                </select>
-
-                <!-- $$$$ buat next $$$$ -->
-                <!-- <select name="Tahun" id="Tahun" onchange="this.form.submit()" class="form">
-                    <?php //for($i=2017; $i<=date('Y'); $i++) {?>
-                        <option <?php //if($i == $tahun){ echo 'selected'; } ?> value="<?php //echo $i; ?>"><?php //echo $i; ?></option>
-                    <?php //} ?>
-                </select> -->
-            <!-- </form> -->
-        </div>
-        <div class="col-md-5" style="padding:0px; margin-top:30px; font-size:20px">
-            <!-- <form method="post" accept-charset="utf-8" action="<?php //echo site_url("insentif_cont"); ?>"> -->
-                <select name="Dist_id" id="Dist_id" onchange="this.form.submit()" class="form" style="margin-right:25px;">
-                    <option value=null>Select Distributor</option>
-                    <?php foreach ($distributor as $dist) {?>
-                        <option <?php if($dist_id == $dist["distributor_id"]){ echo "selected"; } ?> value="<?php echo $dist["distributor_id"]; ?>"><?php echo $dist["distributor_id"]." - ".$dist["first_name"]." ".$dist["last_name"]; ?></option>
-                    <?php } ?>
-                </select>
-            </form>
-        </div>
-        <div class="col-md-2" style="padding:0px; margin-top:30px; font-size:20px">
-            <?php echo "Rp ".number_format(($total_insentif_acq+$total_insentif_trx+$total_insentif_topup),0,",","."); ?>
+    <div class="row" style= "font-size:20px; padding:10px;">
+        KCC External's KPI
+        <div class="selector-bar">
+            <div>
+                <form method="post" accept-charset="utf-8" action="<?php echo site_url("insentif_cont/kcc_external"); ?>">
+                    <select name="Dist_id" id="Dist_id" class="form" style="margin-right:25px;">
+                        <option value=null>Select Distributor</option>
+                        <?php foreach ($distributor as $dist) {?>
+                            <option <?php if($dist_id == $dist["distributor_id"]){ echo "selected"; } ?> value="<?php echo $dist["distributor_id"]; ?>"><?php echo $dist["distributor_id"]." - ".$dist["first_name"]." ".$dist["last_name"]; ?></option>
+                        <?php } ?>
+                    </select>
+                    <?php echo "Rp ".number_format(($total_insentif_acq+$total_insentif_trx+$total_insentif_topup),2,",","."); ?>
+            </div>
+            <div style= "margin-top:10px;">
+                <!-- <form method="post" accept-charset="utf-8" action="<?php //echo site_url("insentif_cont"); ?>"> -->
+                    Month :
+                    <select name="Bulan" id="Bulan" class="form">
+                        <?php for($i=10; $i<13; $i++) {?>
+                            <option <?php if($i == $bulan){ echo 'selected'; } ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                        <?php } ?>
+                    </select>
+                    Year :  
+                    <select name="Tahun" id="Tahun" class="form">
+                        <?php for($i=2017; $i<=date('Y'); $i++) {?>
+                            <option <?php if($i == $tahun){ echo 'selected'; } ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                        <?php } ?>
+                    </select>
+                    <button id="search-button" type="button" class="btn btn-primary btn-ber-loading" onclick="this.form.submit()">Search</button> 
+                </form>
+            </div>
         </div>
     </div>
+
+    
 
     <!-- ##### konten ##### -->
     <div class="konten">
