@@ -185,7 +185,7 @@ class Insentif_cont extends CI_Controller {
             $this->load->view('footer');
         }
     }
-        
+
     public function kcc_super(){
         $data['mode'] = "superkcc";
         //Get the value from the form.
@@ -235,6 +235,49 @@ class Insentif_cont extends CI_Controller {
             $this->load->view('header');
             $this->load->view('Navbar',$data);
             $this->load->view('kcc_external', $data);
+            $this->load->view('footer');
+        }
+    }
+
+    public function kcc_superss(){
+        $data['mode'] = "externalss";
+        //Get the value from the form.
+        $bulan = $this->input->post('Bulan');
+        $tahun = $this->input->post('Tahun');
+        $Dist_id = $_SESSION['identity'];
+
+        if($bulan == null){
+            $data['bulan']= date('m');
+            $bulan=date('m');
+            // echo "bulan = ". date('m');
+        }
+        else{
+            $data['bulan'] = $bulan;
+            // echo "bulan = ".$bulan;
+        }
+
+        //jika nilai tahun null
+        if($tahun == null){
+            $data['tahun']= date('y');
+            $tahun=date('y');
+        }
+        else{
+            $data['tahun'] = $tahun;
+        }
+        $data['distributor']= $this->Insentif_model_kcc_external->get_distributor_name($Dist_id);
+        
+        if($tahun == 2018){
+            include 'kcc_external_script2018.php';
+            $this->load->view('header');
+            $this->load->view('Navbar',$data);
+            $this->load->view('kcc_externalss2018', $data);
+            $this->load->view('footer');
+        }
+        else{
+            include 'kcc_external_script.php';
+            $this->load->view('header');
+            $this->load->view('Navbar',$data);
+            $this->load->view('kcc_externalss', $data);
             $this->load->view('footer');
         }
     }
