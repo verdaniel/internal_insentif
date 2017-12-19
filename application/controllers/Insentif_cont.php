@@ -30,6 +30,12 @@ class Insentif_cont extends CI_Controller {
             $data['mode'] = "externalss";
             redirect("insentif_cont/kcc_externalss");
         }
+
+         // External self login
+         else if($_SESSION['authority']== 5){
+            $data['mode'] = "superkccss";
+            redirect("insentif_cont/kcc_superss");
+        }
         
         else{
             echo "ERROR";
@@ -176,6 +182,59 @@ class Insentif_cont extends CI_Controller {
             $this->load->view('header');
             $this->load->view('Navbar',$data);
             $this->load->view('kcc_externalss', $data);
+            $this->load->view('footer');
+        }
+    }
+        
+    public function kcc_super(){
+        $data['mode'] = "superkcc";
+        //Get the value from the form.
+        $bulan = $this->input->post('Bulan');
+        $tahun = $this->input->post('Tahun');
+        $Dist_id = $this->input->post('Dist_id');
+
+        //jika nilai bulan null
+        if($bulan == null){
+            $data['bulan']= date('m');
+            $bulan=date('m');
+        }
+        else{
+            $data['bulan'] = $bulan;
+        }
+
+        //jika nilai tahun null
+        if($tahun == null){
+            $data['tahun']= date('y');
+            $tahun=date('y');
+        }
+        else{
+            $data['tahun'] = $tahun;
+        }
+
+        $data['distributor']= $this->Insentif_model_super_kcc->get_distributor();
+
+        //jika distributor ID null
+        if($Dist_id == null){
+            $data['dist_id'] = $data['distributor'][0]['distributor_id'];
+            $Dist_id = $data['distributor'][0]['distributor_id'];
+        }
+        else{
+            //Put the value in an array to pass to the view. 
+            $data['dist_id'] = $Dist_id;
+        }
+        
+        if($tahun == 2018){
+            include 'kcc_external_script2018.php';
+            $this->load->view('header');
+            $this->load->view('Navbar',$data);
+            $this->load->view('kcc_external2018', $data);
+            $this->load->view('footer');
+        }
+        else{
+            include 'kcc_external_script.php';
+            $this->load->view('header');
+            $this->load->view('Navbar',$data);
+            $this->load->view('kcc_external', $data);
             $this->load->view('footer');
         }
     }

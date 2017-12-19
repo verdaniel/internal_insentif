@@ -27,6 +27,7 @@
                     else {
                         echo  'class="btn-ber-loading"><a style=" text-align: center; width:150px;" href="'; echo base_url(); echo'index.php/insentif_cont/kcc_internal">Internal KCC</a></li>';
                     }
+
                     echo
                     '<li role="presentation"';
                     if($mode == 'asm'){ 
@@ -34,7 +35,17 @@
                     }
                     else {
                         echo  'class="btn-ber-loading"><a style=" text-align: center; width:150px;" href="'; echo base_url(); echo'index.php/insentif_cont/asm">ASM</a></li>';
-                    }   
+                    }  
+                    
+                    echo
+                    '<li role="presentation"';
+                    if($mode == 'superkcc'){ 
+                        echo  'class="active"><a style=" text-align: center; width:150px;">Super KCC</a></li>';
+                    }
+                    else {
+                       echo  'class="btn-ber-loading"><a style=" text-align: center; width:150px;" href="'; echo base_url(); echo'index.php/insentif_cont/super_kcc">Super KCC</a></li>';
+                    }
+
                     echo
                     '<div class="navbar-right">
                         <a style=" text-align: center; width:150px;" href="';?><?php echo base_url(); ?><?php echo 'index.php/auth_cont/logout">
