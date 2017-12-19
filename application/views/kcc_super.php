@@ -65,7 +65,7 @@
                         <td><?php echo $jumlah_acq; ?></td>
                         <td><?php echo count($churn); ?></td>
                         <td><?php echo $net_acq; ?></td>
-                        <td><?php echo "Rp ".number_format($incentive_acq,0,",","."); ?></td>
+                        <td><?php echo "Rp ".number_format($incentive_acq_superkcc,0,",","."); ?></td>
                         <td><?php echo "Rp ".number_format(($total_insentif_acq),0,",","."); ?></td>
                         <td>
                             <button onclick="document.getElementById('modal-acq').style.display='block'" type="button" class="btn btn-default btn-xs navbar-btn btn-detail">Detail</button>

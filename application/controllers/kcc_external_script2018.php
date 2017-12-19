@@ -1,6 +1,7 @@
 <?php
 // ############# Akuisisi #############
 $data['incentive_acq'] = 100000;
+$data['incentive_acq_superkcc'] = 25000;
 
 $returned_active_kcp = $this->Insentif_model_kcc_external2018->get_active_kcp($Dist_id, $bulan, $tahun);
 $data['active_kcp']= $returned_active_kcp[0];
