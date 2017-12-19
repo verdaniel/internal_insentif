@@ -1,8 +1,5 @@
 <?php
-class Insentif_model_kcc_external2018 extends CI_Model{
-// !!!!!! JANGAN LUPA (".$tahun.") GANTI TAHUN KE (".$tahun.") NANTI !!!!!!!!
-
-// ###################### AKUISISI ##############################
+class Insentif_model_super_kcc extends CI_model{
 
     function get_active_kcp($dist_id, $bulan, $tahun)
     {
@@ -470,5 +467,6 @@ class Insentif_model_kcc_external2018 extends CI_Model{
         return $result;
 
     }
-}
 
+
+}
