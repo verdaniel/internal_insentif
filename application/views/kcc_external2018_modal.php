@@ -1,5 +1,5 @@
 <!-- ########## Area Modal ########## -->
-    <!-- ======= modal acq ======= -->
+    <!-- ======= modal acq (akuisisi) ======= -->
     <div class="w3-container modal_acq">
         <div id="modal-acq" class="w3-modal w3-animate-opacity">
             <div class="w3-modal-content w3-card-4" style=" width:90%!important;">
@@ -105,6 +105,7 @@
             </div>
         </div>
     </div>
+
     <!-- ======= modal topup 2 (list frekuensi top up tiap KCP dalam sebulan)======= -->
     <div class="w3-container modal_tu2">
         <div id="modal-tu2" class="w3-modal w3-animate-opacity"> <!-- class="w3-modal w3-animate-opacity" -->
@@ -161,7 +162,7 @@
         </div>
     </div>
 
-    <!-- ======= modal trans ======= -->
+    <!-- ======= modal transaksi ======= -->
     <div class="w3-container modal_trans1">
         <div id="modal-trans1" class="w3-modal w3-animate-opacity">
             <div class="w3-modal-content w3-card-4">

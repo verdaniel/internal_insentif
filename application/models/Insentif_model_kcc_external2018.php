@@ -1,6 +1,6 @@
 <?php
 class Insentif_model_kcc_external2018 extends CI_Model{
-// !!!!!! JANGAN LUPA (".$tahun.") GANTI TAHUN KE (".$tahun.") NANTI !!!!!!!!
+// !!!!!! JANGAN LUPA (2017) GANTI TAHUN KE (2017) NANTI !!!!!!!!
 
 // ###################### AKUISISI ##############################
 
@@ -16,7 +16,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
             ipay_retailer_daily_payments p
                 INNER JOIN
             ipay_retailer c ON p.retailerid = c.retailer_id
-                AND p.dateofpayment BETWEEN '".$tahun."-".$bulan."-01 00:00:00' AND '".$tahun."-".$bulan."-31 23:59:59'
+                AND p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
                 AND c.distributer_id = '".$dist_id."'
         GROUP BY p.retailerid
         HAVING total >= 200000"
@@ -44,8 +44,8 @@ class Insentif_model_kcc_external2018 extends CI_Model{
         FROM
             ipay_retailer_daily_payments
         GROUP BY retailerid) t1 ON t1.ids = p.id
-        AND p.dateofpayment BETWEEN '".$tahun."-".$bulan."-01 00:00:00' AND '".$tahun."-".$bulan."-31 23:59:59'
-        AND c.activated_date BETWEEN '".$tahun."-".$bulan."-01' AND '".$tahun."-".$bulan."-31'
+        AND p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
+        AND c.activated_date BETWEEN '2017-".$bulan."-01' AND '2017-".$bulan."-31'
         AND c.distributer_id = '".$dist_id."'
         having amount > '200000'"
         );
@@ -68,7 +68,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
             ipay_retailer
         WHERE
             distributer_id = '".$dist_id."'
-        AND activated_date Between '".$tahun."-".($bulan-1)."-01' AND '".$tahun."-".($bulan-1)."-31'
+        AND activated_date Between '2017-".($bulan-1)."-01' AND '2017-".($bulan-1)."-31'
         AND status = '1'"
         );
         return $query->result_array();
@@ -85,7 +85,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
         INNER JOIN
             ipay_retailer b ON a.retailerid = b.retailer_id
         WHERE
-            dateofpayment BETWEEN '".$tahun."-".($bulan)."-01 00:00:00'  AND '".$tahun."-".($bulan)."-31 23:59:59'
+            dateofpayment BETWEEN '2017-".($bulan)."-01 00:00:00'  AND '2017-".($bulan)."-31 23:59:59'
                 AND b.distributer_id = '".$dist_id."'"
         );
         // $result = $query->result_array();
@@ -107,7 +107,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
                 INNER JOIN
             ipay_retailer b ON a.retailer_id = b.retailer_id
         WHERE
-            transaction_date_only BETWEEN '".$tahun."-".$bulan."-01' AND '".$tahun."-".$bulan."-31'
+            transaction_date_only BETWEEN '2017-".$bulan."-01' AND '2017-".$bulan."-31'
                 AND a.cancelled_reference_id IS NULL
                 AND a.payment_status = 'received'
                 AND a.order_status = 'success'
@@ -227,7 +227,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
                 INNER JOIN
             ipay_retailer c ON p.retailerid = c.retailer_id
         WHERE
-            p.dateofpayment BETWEEN '".$tahun."-".$bulan."-01 00:00:00' AND '".$tahun."-".$bulan."-31 23:59:59'
+            p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
                 AND c.distributer_id = '".$dist_id."'
         HAVING amount >= 200000"
         );

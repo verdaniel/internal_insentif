@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('Insentif_model_kcc_external', 'Insentif_model_kcc_external2018', 'Insentif_model_asm', 'Insentif_model_kcc_internal');
+$autoload['model'] = array('Insentif_model_super_kcc','Insentif_model_kcc_external', 'Insentif_model_kcc_external2018', 'Insentif_model_asm', 'Insentif_model_kcc_internal');

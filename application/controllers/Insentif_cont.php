@@ -240,20 +240,19 @@ class Insentif_cont extends CI_Controller {
     }
 
     public function kcc_superss(){
-        $data['mode'] = "externalss";
+        $data['mode'] = "superkccss";
         //Get the value from the form.
         $bulan = $this->input->post('Bulan');
         $tahun = $this->input->post('Tahun');
-        $Dist_id = $_SESSION['identity'];
+        $super_kcc_id = $_SESSION['identity'];
 
+        //jika nilai bulan null
         if($bulan == null){
             $data['bulan']= date('m');
             $bulan=date('m');
-            // echo "bulan = ". date('m');
         }
         else{
             $data['bulan'] = $bulan;
-            // echo "bulan = ".$bulan;
         }
 
         //jika nilai tahun null
@@ -264,21 +263,18 @@ class Insentif_cont extends CI_Controller {
         else{
             $data['tahun'] = $tahun;
         }
-        $data['distributor']= $this->Insentif_model_kcc_external->get_distributor_name($Dist_id);
-        
-        if($tahun == 2018){
+        $data['super_kcc']= $this->Insentif_model_super_kcc->get_super_kcc_name($super_kcc_id);
+        $data['bawahan_super_kcc']= $this->Insentif_model_super_kcc->get_kcc_under_super_kcc($super_kcc_id);
+        print_r($data['super_kcc']);
+        for ($i=0; $i < $data['bawahan_super_kcc'][1]; $i++) { 
+            $Dist_id= $data['bawahan_super_kcc'][0][$i]['distributor_id'];
             include 'kcc_external_script2018.php';
-            $this->load->view('header');
-            $this->load->view('Navbar',$data);
-            $this->load->view('kcc_externalss2018', $data);
-            $this->load->view('footer');
         }
-        else{
-            include 'kcc_external_script.php';
-            $this->load->view('header');
-            $this->load->view('Navbar',$data);
-            $this->load->view('kcc_externalss', $data);
-            $this->load->view('footer');
-        }
+        
+        $this->load->view('header');
+        $this->load->view('Navbar',$data);
+        $this->load->view('kcc_superss', $data);
+        $this->load->view('footer');
+
     }
 }

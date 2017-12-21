@@ -1,7 +1,7 @@
 <?php
 // ############# Akuisisi #############
 $data['incentive_acq'] = 100000;
-$data['incentive_acq_superkcc'] = 25000;
+
 
 $returned_active_kcp = $this->Insentif_model_kcc_external2018->get_active_kcp($Dist_id, $bulan, $tahun);
 $data['active_kcp']= $returned_active_kcp[0];
@@ -18,28 +18,28 @@ if($returned_new_acq != null){
 else { //jika tidak ada yang diakuisisi >=200rb bulan ini
     $data['jumlah_acq']= 0;
 }
-// ===== bagian awal penghitung churn
 
+// ===== bagian awal penghitung churn
 $all_acq = $this->Insentif_model_kcc_external2018->get_acquisition_list($Dist_id, $bulan, $tahun);
 $last_month_id = $this->Insentif_model_kcc_external2018->topup_list($Dist_id, $bulan, $tahun);
-
 
 // menyatukan nama depan & nama belakang
 // *nantinya bisa di concat dalam query
 $all_acq_name=[];
+$all_acq_belanja=[];
 for ($i=0; $i < count($all_acq); $i++) { 
     array_push($all_acq_name, $all_acq[$i]['retailer_id']." - ".$all_acq[$i]['first_name']." ".$all_acq[$i]['last_name']);
-}
 
-// cek apakah yang terakuisisi bulan lalu, belanja pada bulan ini
-$all_acq_belanja=[];
-for ($o=0; $o <count($all_acq) ; $o++) { 
-    for ($i=0; $i < count($last_month_id); $i++) { 
-        if ($last_month_id[$i]['retailerid'] == $all_acq[$o]['retailer_id']) {
-            array_push($all_acq_belanja, $all_acq[$o]['retailer_id']." - ".$all_acq[$o]['first_name']." ".$all_acq[$o]['last_name']);
+    // cek apakah yang terakuisisi bulan lalu, belanja pada bulan ini
+    for ($p=0; $p < count($last_month_id); $p++) { 
+        if ($last_month_id[$p]['retailerid'] == $all_acq[$i]['retailer_id']) {
+            array_push($all_acq_belanja, $all_acq[$i]['retailer_id']." - ".$all_acq[$i]['first_name']." ".$all_acq[$i]['last_name']);
         }
     }
 }
+
+
+
 
 //cari selisih $all_acq_name yang tidak ada dalam $all_acq_belanja
 $churn=array_diff($all_acq_name, $all_acq_belanja);
