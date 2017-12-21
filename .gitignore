@@ -30,7 +30,3 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/tests/
 /tests/results/
 
-application/config/*
-!application/config/autoload.php
-!application/config/routes.php
-!application/config/config.php
