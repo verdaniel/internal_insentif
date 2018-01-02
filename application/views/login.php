@@ -1,7 +1,15 @@
+<!-- header bayangan -->
+    <title>Insentif</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<?php $this->load->view('header'); ?>
+    <!-- Bootstrap -->
+    <link href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        
 
-  
+    <!-- stylesheet -->
+    <link href="<?php echo base_url(); ?>assets/style.css" rel="stylesheet">
+<!-- header bayangan -->
+
     <div class="row">    
         <div class="formnya col-md-6 col-md-offset-3">
             <div class="loginform"> 
@@ -17,13 +25,13 @@
                 <form action="" method="POST">
                     <div class="form-group left-addon">
                     <!-- <label for="username" > </label> -->
-                    <i class="glyphicon glyphicon-user"></i>
+                    <label for="username"><i class="glyphicon glyphicon-user"></i></label>
                     <input type="text" class="form-control" name="username" id="username" placeholder="Username">
                     </div>
                         
                     <div class="form-group left-addon">
                     <!-- <label for="password" ></label> -->
-                    <i class="glyphicon glyphicon-lock"></i>
+                    <label for="password"><i class="glyphicon glyphicon-lock"></i></label>
                     <input type="password" class="form-control" name="password" id="password" placeholder="Password" >
                     </div>
 
@@ -34,4 +42,3 @@
             </div>
         </div>
     </div>
-<?php $this->load->view('footer'); ?>

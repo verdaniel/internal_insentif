@@ -114,7 +114,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
                 AND a.distributer_id = '".$dist_id."'
                 AND transaction_type IN ('MR' , 'TO',
                 'MT',
-                'EP',
+                #'EP',
                 'RP',
                 'PP',
                 'EB',
@@ -148,7 +148,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
         $array_ppob=[];
         $array_moneyTansfer=[];
         $array_digitalProduct=[];
-        $array_eCommerce=[];
+        // $array_eCommerce=[];
         $array_referralProduct=[];
 
         
@@ -164,9 +164,9 @@ class Insentif_model_kcc_external2018 extends CI_Model{
                 case 'MT':
                     $array_moneyTansfer[]=$q_result[$i];
                     break;
-                case 'EP':
-                    $array_eCommerce[]=$q_result[$i];
-                    break;
+                // case 'EP':
+                //     $array_eCommerce[]=$q_result[$i];
+                //     break;
                 case 'RP':
                     $array_referralProduct[]=$q_result[$i];
                     break;
@@ -206,7 +206,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
             $array_ppob, 
             $array_moneyTansfer, 
             $array_digitalProduct, 
-            $array_eCommerce, 
+            // $array_eCommerce, 
             $array_referralProduct
         );
         

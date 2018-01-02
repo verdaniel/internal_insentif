@@ -1,6 +1,22 @@
 <?php
 class Insentif_model_super_kcc extends CI_model{
 
+    function get_super_kcc_list()
+    {
+        $CI=&get_instance();
+        $this->db2=$CI->load->database('login', TRUE);
+        $query = $this->db2->query("SELECT 
+            username, first_name, last_name
+        FROM
+            internal_insentif.insentif_login
+        WHERE
+            authority = 5
+        "
+        );
+        $q_result= $query->result_array();
+        return $query->result_array();
+    }
+
     function get_kcc_under_super_kcc($super_kcc_id)
     {
         $CI=&get_instance();

@@ -1,4 +1,4 @@
-<div id="loader" class="loader"></div> 
+
 
 <div style="display:none;" id="myDiv" class="animate-bottom">
     <div class="col-md-12" style="color:red;text-align:center;">
@@ -8,7 +8,7 @@
         ?>
     </div>
     <div class="row" style= "font-size:20px; padding:10px;">
-        KCC External's KPI
+        External KCC's KPI
         <div class="selector-bar">
             <div>
                 <form method="post" accept-charset="utf-8" action="<?php echo site_url("insentif_cont/kcc_external"); ?>">

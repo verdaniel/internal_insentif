@@ -1,4 +1,4 @@
-<div id="loader" class="loader"></div> 
+
 
 <div style="display:none;" id="myDiv" class="animate-bottom fixed-position">
     <div class="col-md-12" style="color:red;text-align:center;">
@@ -12,7 +12,7 @@
         <?php echo "[ ".$super_kcc[0]['first_name']." ".$super_kcc[0]['last_name']." ] = Rp ".number_format(($total_insentif_acq+$total_insentif_trx+$total_insentif_topup+$total_insentif_posm),2,",","."); ?> 
     </div>
     <div class="selector-bar">
-        <form method="post" accept-charset="utf-8" action="<?php echo site_url("insentif_cont/kcc_externalss"); ?>">
+        <form method="post" accept-charset="utf-8" action="<?php echo site_url("insentif_cont/kcc_superss"); ?>">
             Month :
             <select name="Bulan" id="Bulan" class="form">
                 <?php for($i=10; $i<13; $i++) {?>
@@ -32,12 +32,35 @@
     <!-- ##### konten ##### -->
     <div class="konten">
 
+        <div class="row posm">
+            <h3>POSM</h3>
+            <table id="posm" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Active KCP (Top up >= Rp 200,000)</th>
+                        <th>Incentive POSM</th>
+                        <th>Incentive Amount</th>
+                        <th class="kolom7">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?php echo $jumlah_active_kcp; ?></td>
+                        <td><?php echo "Rp ".number_format($insentif_posm,0,",","."); ?></td>
+                        <td><?php echo "Rp ".number_format(($total_insentif_posm),0,",","."); ?></td>
+                        <td>
+                            <button onclick="document.getElementById('modal-active-tu').style.display='block'" type="button" class="btn btn-default btn-xs navbar-btn btn-detail">Detail</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+                            
         <div class="row akuisisi">
             <h3>NET ACQUISITION</h3>
             <table id="akuisisi" class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Active KCP (Top up >= Rp 200,000)</th>
                         <th>New Acquisition (Top up >= Rp 200,000)</th>
                         <th>Churn</th>
                         <th>Net Acquisition</th>
@@ -48,11 +71,10 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><?php echo $jumlah_active_kcp; ?></td>
                         <td><?php echo $jumlah_acq; ?></td>
                         <td><?php echo count($churn); ?></td>
                         <td><?php echo $net_acq; ?></td>
-                        <td><?php echo "Rp ".number_format($incentive_acq,0,",","."); ?></td>
+                        <td><?php echo "Rp ".number_format($insentifPer_acq,0,",","."); ?></td>
                         <td><?php echo "Rp ".number_format(($total_insentif_acq),0,",","."); ?></td>
                         <td>
                             <button onclick="document.getElementById('modal-acq').style.display='block'" type="button" class="btn btn-default btn-xs navbar-btn btn-detail">Detail</button>
@@ -73,8 +95,8 @@
                     <th>PPOB</th>
                     <th>Money Transfer</th>
                     <th>Digital Product</th>
-                    <th>E-Commerce</th>
-                    <th>Referal Product</th>
+                    <!-- <th>E-Commerce</th> -->
+                    <th>Referral Product</th>
                 </tr>
                 <tr>
                     <th class="box-biru">Qty</th>
@@ -82,30 +104,30 @@
                     <td><?php echo count($ppob);?></td>
                     <td><?php echo count($moneyTransfer);?></td>
                     <td><?php echo count($digitalProduct);?></td>
-                    <td><?php echo count($eCommerce);?></td>
+                    <!-- <td><?php //echo count($eCommerce);?></td> -->
                     <td><?php echo count($referralProduct);?></td>
                 </tr>
                 <tr>
                     <th  class="box-biru">Incentive/Qty</th>
-                    <td>Rp 25</td>
-                    <td>Rp 200</td>
-                    <td>Rp 200</td>
-                    <td>Rp 200</td>
-                    <td>Rp 5.000</td>
-                    <td>Rp 10.000</td>
+                    <td class="abu"><?php echo  "Rp ".number_format(($insentifPer_pulsa),2,",",".");?></td>
+                    <td class="abu"><?php echo  "Rp ".number_format(($insentifPer_ppob),2,",",".");?></td>
+                    <td class="abu"><?php echo  "Rp ".number_format(($insentifPer_moneyTransfer),2,",",".");?></td>
+                    <td class="abu"><?php echo  "Rp ".number_format(($insentifPer_digitalProduct),2,",",".");?></td>
+                    <!-- <td class="abu"><?php //echo  "Rp ".number_format(($insentifPer_eCommerce),2,",",".");?></td> -->
+                    <td class="abu"><?php echo  "Rp ".number_format(($insentifPer_referralProduct),2,",",".");?></td>
                 </tr>
                 <tr>
                     <th class="box-biru">Incentive</th>
-                    <td class="abu"><?php echo  "Rp ".number_format(($insentif_pulsa),0,",",".");?></td>
-                    <td class="abu"><?php echo  "Rp ".number_format(($insentif_ppob),0,",",".");?></td>
-                    <td class="abu"><?php echo  "Rp ".number_format(($insentif_moneyTransfer),0,",",".");?></td>
-                    <td class="abu"><?php echo  "Rp ".number_format(($insentif_digitalProduct),0,",",".");?></td>
-                    <td class="abu"><?php echo  "Rp ".number_format(($insentif_eCommerce),0,",",".");?></td>
-                    <td class="abu"><?php echo  "Rp ".number_format(($insentif_referralProduct),0,",",".");?></td>
+                    <td class="abu"><?php echo  "Rp ".number_format(($insentif_pulsa),2,",",".");?></td>
+                    <td class="abu"><?php echo  "Rp ".number_format(($insentif_ppob),2,",",".");?></td>
+                    <td class="abu"><?php echo  "Rp ".number_format(($insentif_moneyTransfer),2,",",".");?></td>
+                    <td class="abu"><?php echo  "Rp ".number_format(($insentif_digitalProduct),2,",",".");?></td>
+                    <!-- <td class="abu"><?php //echo  "Rp ".number_format(($insentif_eCommerce),2,",",".");?></td> -->
+                    <td class="abu"><?php echo  "Rp ".number_format(($insentif_referralProduct),2,",",".");?></td>
                 </tr>
                 <tr>
                     <th>Total</th>
-                    <td class="text-bold" colspan="6"><?php echo  "Rp ".number_format(($total_insentif_trx),0,",",".");?></td>
+                    <td class="text-bold" colspan="5"><?php echo  "Rp ".number_format(($total_insentif_trx),2,",",".");?></td>
                 </tr>
             </table>
         </div>
@@ -363,32 +385,6 @@
                 </tr>
             </table>
         </div>
-
-
-        <div class="row posm">
-            <h3>POSM</h3>
-            <table id="posm" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Active KCP (Top up >= Rp 200,000)</th>
-                        <th>Incentive Per Acquisition</th>
-                        <th>Incentive Amount</th>
-                        <th class="kolom7">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><?php echo $jumlah_active_kcp; ?></td>
-                        <td><?php echo "Rp ".number_format($insentif_posm,0,",","."); ?></td>
-                        <td><?php echo "Rp ".number_format(($total_insentif_posm),0,",","."); ?></td>
-                        <td>
-                            <button onclick="document.getElementById('modal-active-tu').style.display='block'" type="button" class="btn btn-default btn-xs navbar-btn btn-detail">Detail</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
         
     </div>
 </div>

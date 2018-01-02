@@ -1,7 +1,27 @@
 <?php
-// ############# Akuisisi #############
-$data['incentive_acq'] = 100000;
 
+// ############# Set Nilai Insentif Disini ! ############
+
+//kalau kcc eksternal porsi insentifnya 75%
+if($_SESSION['mode']== "superkcc" || $_SESSION['mode']== "superkccss"){
+    $pengali_insentif = 1;
+}
+
+//kalau skcc porsi insentifnya 25%
+elseif($_SESSION['mode']== "external" || $_SESSION['mode']== "externalss"){
+    $pengali_insentif = 1;
+}
+
+
+$data['insentifPer_acq']               = $pengali_insentif * 40000;
+$data['insentifPer_pulsa']             = $pengali_insentif * 18;
+$data['insentifPer_ppob']              = $pengali_insentif * 150;
+$data['insentifPer_moneyTransfer']     = $pengali_insentif * 150;
+$data['insentifPer_digitalProduct']    = $pengali_insentif * 150;
+// $data['insentifPer_eCommerce']         = $pengali_insentif * 5000;
+$data['insentifPer_referralProduct']    = $pengali_insentif * 75000;
+
+// ############# Akuisisi #############
 
 $returned_active_kcp = $this->Insentif_model_kcc_external2018->get_active_kcp($Dist_id, $bulan, $tahun);
 $data['active_kcp']= $returned_active_kcp[0];
@@ -56,13 +76,7 @@ else{
 }
 // ===== bagian akhir penghitung churn
 
-// jika kcp aktif < 50, tidak diberikan insentif
-if ($data['active_kcp']>= 50) {
-    $data['total_insentif_acq']= $data['net_acq_calc']*$data['incentive_acq'];
-}
-else {
-    $data['total_insentif_acq']=0;
-}
+$data['total_insentif_acq']= $data['net_acq_calc']*$data['insentifPer_acq'];
 
 // ############# Transaksi #############
 $returned_tr= $this->Insentif_model_kcc_external2018->get_transaction($Dist_id, $bulan, $tahun);
@@ -70,16 +84,18 @@ $data['pulsa']= $returned_tr[0];
 $data['ppob']= $returned_tr[1];
 $data['moneyTransfer']= $returned_tr[2];
 $data['digitalProduct']= $returned_tr[3];
-$data['eCommerce']= $returned_tr[4];
-$data['referralProduct']= $returned_tr[5];
+// $data['eCommerce']= $returned_tr[4];
+$data['referralProduct']= $returned_tr[4];
 
 // hitung insentif per jenis transaksi
-$data['insentif_pulsa']=count($data['pulsa'])*25 ;
-$data['insentif_ppob']=count($data['ppob'])*200 ;
-$data['insentif_moneyTransfer']=count($data['moneyTransfer'])*200 ;
-$data['insentif_digitalProduct']=count($data['digitalProduct'])*200 ;
-$data['insentif_eCommerce']=count($data['eCommerce'])*5000 ;
-$data['insentif_referralProduct']=count($data['referralProduct'])*10000 ;
+$data['insentif_pulsa']             = count($data['pulsa'])          * $data['insentifPer_pulsa'] ;
+$data['insentif_ppob']              = count($data['ppob'])           * $data['insentifPer_ppob'] ;
+$data['insentif_moneyTransfer']     = count($data['moneyTransfer'])  * $data['insentifPer_moneyTransfer'] ;
+$data['insentif_digitalProduct']    = count($data['digitalProduct']) * $data['insentifPer_digitalProduct'] ;
+// $data['insentif_eCommerce']         = count($data['eCommerce'])      * $data['insentifPer_eCommerce'] ;
+$data['insentif_referralProduct']   = count($data['referralProduct'])* $data['insentifPer_referralProduct'] ;
+
+$data['insentif_eCommerce'] = 0;
 $data['total_insentif_trx']=$data['insentif_pulsa']+$data['insentif_ppob']+$data['insentif_moneyTransfer']+$data['insentif_digitalProduct']+$data['insentif_eCommerce']+$data['insentif_referralProduct'];
 // ############# Top Up #############
 $returned_tu= $this->Insentif_model_kcc_external2018->get_topup($Dist_id, $bulan, $tahun);
@@ -136,6 +152,6 @@ $data['total_insentif_unique_topup']=array_sum($insentif_unique_topup);
 $data['total_insentif_topup']= $data['total_insentif_unique_topup']+$data['total_insentif_utama_topup'];
 
 // ############# POSM #############
-$data['insentif_posm']= 7500;
+$data['insentif_posm']= 10000;
 
 $data['total_insentif_posm']= $data['insentif_posm']*$data['jumlah_active_kcp'];

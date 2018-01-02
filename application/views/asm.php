@@ -1,4 +1,4 @@
-<div id="loader" class="loader"></div> 
+
 
 <div style="display:none;" id="myDiv" class="animate-bottom">
     <div class="col-md-12" style="color:red;text-align:center;">

@@ -1,4 +1,4 @@
-<div id="loader" class="loader"></div> 
+
 
 <div class="col-md-12" style="color:red;text-align:center;">
     <?php 

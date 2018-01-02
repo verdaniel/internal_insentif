@@ -15,25 +15,25 @@ class Insentif_cont extends CI_Controller {
     public function index(){
         //NSM
         if($_SESSION['authority']== 1){
-            $data['mode'] = "asm";
+            $_SESSION['mode'] = "asm";
             redirect("insentif_cont/asm");
         }
 
         // Internal self login
         else if($_SESSION['authority']== 3){
-            $data['mode'] = "externalss";
+            $_SESSION['mode'] = "internalss";
             redirect("insentif_cont/kcc_internalss");
         }
 
         // External self login
         else if($_SESSION['authority']== 4){
-            $data['mode'] = "externalss";
+            $_SESSION['mode'] = "externalss";
             redirect("insentif_cont/kcc_externalss");
         }
 
          // super kcc self login
          else if($_SESSION['authority']== 5){
-            $data['mode'] = "superkccss";
+            $_SESSION['mode'] = "superkccss";
             redirect("insentif_cont/kcc_superss");
         }
         
@@ -45,7 +45,7 @@ class Insentif_cont extends CI_Controller {
 
     public function kcc_internal(){
 
-        $data['mode'] = "internal";
+        $_SESSION['mode'] = "internal";
         //Get the value from the form.
         $kcc_internal_selected = $this->input->post('kcc_internal');
 
@@ -69,7 +69,7 @@ class Insentif_cont extends CI_Controller {
 
     public function kcc_internalss(){
         
-        $data['mode'] = "internalss";
+        $_SESSION['mode'] = "internalss";
         //Get the value from the form.
         $kcc_internal_selected = $_SESSION['identity'];
         $data['name_returned']= $this->Insentif_model_kcc_internal->get_kcc_internal_name($kcc_internal_selected); 
@@ -82,7 +82,7 @@ class Insentif_cont extends CI_Controller {
     }
 
     public function asm(){
-        $data['mode'] = "asm";
+        $_SESSION['mode'] = "asm";
         include 'asm_script.php';
         $this->load->view('header');
         $this->load->view('Navbar',$data);
@@ -91,7 +91,7 @@ class Insentif_cont extends CI_Controller {
     }
 
 	public function kcc_external(){
-        $data['mode'] = "external";
+        $_SESSION['mode'] = "external";
         //Get the value from the form.
         $bulan = $this->input->post('Bulan');
         $tahun = $this->input->post('Tahun');
@@ -144,7 +144,7 @@ class Insentif_cont extends CI_Controller {
     }
 
     public function kcc_externalss(){
-        $data['mode'] = "externalss";
+        $_SESSION['mode'] = "externalss";
         //Get the value from the form.
         $bulan = $this->input->post('Bulan');
         $tahun = $this->input->post('Tahun');
@@ -187,11 +187,11 @@ class Insentif_cont extends CI_Controller {
     }
 
     public function kcc_super(){
-        $data['mode'] = "superkcc";
+        $_SESSION['mode'] = "superkcc";
         //Get the value from the form.
         $bulan = $this->input->post('Bulan');
         $tahun = $this->input->post('Tahun');
-        $Dist_id = $this->input->post('Dist_id');
+        $super_kcc_id = $this->input->post('skcc_id');
 
         //jika nilai bulan null
         if($bulan == null){
@@ -211,36 +211,34 @@ class Insentif_cont extends CI_Controller {
             $data['tahun'] = $tahun;
         }
 
-        $data['distributor']= $this->Insentif_model_super_kcc->get_distributor();
+        $data['super_kcc_list']= $this->Insentif_model_super_kcc->get_super_kcc_list();
 
-        //jika distributor ID null
-        if($Dist_id == null){
-            $data['dist_id'] = $data['distributor'][0]['distributor_id'];
-            $Dist_id = $data['distributor'][0]['distributor_id'];
+        //jika nilai super_kcc_id null
+        if($super_kcc_id == null){
+            $data['super_kcc_id']= $data['super_kcc_list'][0]['username'];
+            $super_kcc_id = $data['super_kcc_id'];
         }
         else{
-            //Put the value in an array to pass to the view. 
-            $data['dist_id'] = $Dist_id;
+            $data['super_kcc_id'] = $super_kcc_id;
+        }
+
+        
+        $data['bawahan_super_kcc']= $this->Insentif_model_super_kcc->get_kcc_under_super_kcc($super_kcc_id);
+        print_r($data['super_kcc_id']);
+        for ($i=0; $i < $data['bawahan_super_kcc'][1]; $i++) { 
+            $Dist_id= $data['bawahan_super_kcc'][0][$i]['distributor_id'];
+            include 'kcc_external_script2018.php';
         }
         
-        if($tahun == 2018){
-            include 'kcc_external_script2018.php';
-            $this->load->view('header');
-            $this->load->view('Navbar',$data);
-            $this->load->view('kcc_external2018', $data);
-            $this->load->view('footer');
-        }
-        else{
-            include 'kcc_external_script.php';
-            $this->load->view('header');
-            $this->load->view('Navbar',$data);
-            $this->load->view('kcc_external', $data);
-            $this->load->view('footer');
-        }
+        $this->load->view('header');
+        $this->load->view('Navbar',$data);
+        $this->load->view('kcc_super', $data);
+        $this->load->view('footer');
+
     }
 
     public function kcc_superss(){
-        $data['mode'] = "superkccss";
+        $_SESSION['mode'] = "superkccss";
         //Get the value from the form.
         $bulan = $this->input->post('Bulan');
         $tahun = $this->input->post('Tahun');
@@ -265,7 +263,6 @@ class Insentif_cont extends CI_Controller {
         }
         $data['super_kcc']= $this->Insentif_model_super_kcc->get_super_kcc_name($super_kcc_id);
         $data['bawahan_super_kcc']= $this->Insentif_model_super_kcc->get_kcc_under_super_kcc($super_kcc_id);
-        print_r($data['super_kcc']);
         for ($i=0; $i < $data['bawahan_super_kcc'][1]; $i++) { 
             $Dist_id= $data['bawahan_super_kcc'][0][$i]['distributor_id'];
             include 'kcc_external_script2018.php';
