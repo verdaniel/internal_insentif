@@ -2,16 +2,14 @@
 class Insentif_model_kcc_external2018 extends CI_Model{
 // !!!!!! JANGAN LUPA (2017) GANTI TAHUN KE (2017) NANTI !!!!!!!!
 
-// ###################### AKUISISI ##############################
+// ###################### POSM ##############################
 
     function get_active_kcp($dist_id, $bulan, $tahun)
     {
         $query = $this->db->query("SELECT 
-            p.retailerid,
-            count(p.retailerid) AS freq,
-            SUM(p.amount) AS total,
-            c.first_name,
-            c.last_name
+            CONCAT(p.retailerid, ' - ', c.first_name, ' ', c.last_name) AS identity,
+            COUNT(p.retailerid) AS freq,
+            SUM(p.amount) AS total
         FROM
             ipay_retailer_daily_payments p
                 INNER JOIN
@@ -30,10 +28,16 @@ class Insentif_model_kcc_external2018 extends CI_Model{
         return $result;
     }
 
+// ###################### AKUISISI ##############################
     function get_new_acquisition_tu($dist_id, $bulan, $tahun)
     {
         $query = $this->db->query("SELECT 
-        p.retailerid, p.amount,c.first_name, c.last_name
+            CONCAT(p.retailerid,
+                ' - ',
+                c.first_name,
+                ' ',
+                c.last_name) AS identity,
+            p.amount
         FROM
         ipay_retailer_daily_payments p
         INNER JOIN
@@ -63,7 +67,11 @@ class Insentif_model_kcc_external2018 extends CI_Model{
     function get_acquisition_list($dist_id, $bulan, $tahun) 
     {
         $query = $this->db->query("SELECT 
-            distinct(retailer_id), first_name, last_name
+            CONCAT(retailer_id,
+            ' - ',
+            first_name,
+            ' ',
+            last_name) AS identity
         FROM
             ipay_retailer
         WHERE
@@ -79,7 +87,11 @@ class Insentif_model_kcc_external2018 extends CI_Model{
     {
         
         $query = $this->db->query("SELECT DISTINCT
-            (retailerid)
+            (CONCAT(retailer_id,
+            ' - ',
+            first_name,
+            ' ',
+            last_name)) AS identity
         FROM
             ipay_retailer_daily_payments a
         INNER JOIN

@@ -1,4 +1,5 @@
 <!-- ########## Area Modal ########## -->
+<div class="w3-container">
     <!-- ======= modal acq ======= -->
     <div id="modal-acq" class="w3-modal w3-animate-opacity">
         <div class="w3-modal-content w3-card-4" style=" width:90%!important;">
@@ -313,4 +314,5 @@
             </div>
         </div>
     </div>
+</div>
     

@@ -121,12 +121,12 @@
                 </tr>
                 <tr>
                     <th  class="box-biru">Incentive/Qty</th>
-                    <td class="abu"><?php echo  "Rp ".number_format(($insentifPer_pulsa),2,",",".");?></td>
-                    <td class="abu"><?php echo  "Rp ".number_format(($insentifPer_ppob),2,",",".");?></td>
-                    <td class="abu"><?php echo  "Rp ".number_format(($insentifPer_moneyTransfer),2,",",".");?></td>
-                    <td class="abu"><?php echo  "Rp ".number_format(($insentifPer_digitalProduct),2,",",".");?></td>
-                    <!-- <td class="abu"><?php //echo  "Rp ".number_format(($insentifPer_eCommerce),2,",",".");?></td> -->
-                    <td class="abu"><?php echo  "Rp ".number_format(($insentifPer_referralProduct),2,",",".");?></td>
+                    <td><?php echo  "Rp ".number_format(($insentifPer_pulsa),2,",",".");?></td>
+                    <td><?php echo  "Rp ".number_format(($insentifPer_ppob),2,",",".");?></td>
+                    <td><?php echo  "Rp ".number_format(($insentifPer_moneyTransfer),2,",",".");?></td>
+                    <td><?php echo  "Rp ".number_format(($insentifPer_digitalProduct),2,",",".");?></td>
+                    <!-- <td><?php //echo  "Rp ".number_format(($insentifPer_eCommerce),2,",",".");?></td> -->
+                    <td><?php echo  "Rp ".number_format(($insentifPer_referralProduct),2,",",".");?></td>
                 </tr>
                 <tr>
                     <th class="box-biru">Incentive</th>

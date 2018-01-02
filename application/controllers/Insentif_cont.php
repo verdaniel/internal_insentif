@@ -224,7 +224,6 @@ class Insentif_cont extends CI_Controller {
 
         
         $data['bawahan_super_kcc']= $this->Insentif_model_super_kcc->get_kcc_under_super_kcc($super_kcc_id);
-        print_r($data['super_kcc_id']);
         for ($i=0; $i < $data['bawahan_super_kcc'][1]; $i++) { 
             $Dist_id= $data['bawahan_super_kcc'][0][$i]['distributor_id'];
             include 'kcc_external_script2018.php';

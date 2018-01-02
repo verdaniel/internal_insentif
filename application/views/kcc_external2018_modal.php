@@ -1,4 +1,5 @@
 <!-- ########## Area Modal ########## -->
+<div class="w3-container">
     <!-- ======= modal acq (akuisisi) ======= -->
     <div id="modal-acq" class="w3-modal w3-animate-opacity">
         <div class="w3-modal-content w3-card-4" style=" width:90%!important;">
@@ -25,7 +26,7 @@
                                     <?php $nomor++; ?>
                                     <tr>
                                         <td><?php echo $nomor; ?></td>
-                                        <td><?php echo $a['retailerid']." - ".$a['first_name']." ".$a['last_name']; ?></td>
+                                        <td><?php echo $a['identity']; ?></td>
                                         <td>
                                             <?php echo "Rp ".number_format($a['amount'],0,",","."); ?>
                                         </td>   
@@ -193,17 +194,6 @@
                                         </td>
                                     </tr>
                                 <?php } ?>
-                                <?php foreach ($eCommerce as $data) { ?>
-                                    <?php $nomor++; ?>
-                                    <tr>
-                                        <td><?php echo $nomor; ?></td>
-                                        <td><?php echo $data['retailer_id']." - ".$data['first_name']." ".$data['last_name']; ?></td>
-                                        <td><?php echo $data['transaction_date']; ?></td>
-                                        <td>
-                                            <?php echo "E-Commerce"; ?>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
                                 <?php foreach ($digitalProduct as $data) { ?>
                                     <?php $nomor++; ?>
                                     <tr>
@@ -257,7 +247,7 @@
     </div>
     
 
-    <!-- ======= modal aktif topup (yang akumulasi topup sebulan >=200rb) ======= -->
+    <!-- ======= modal aktif topup (yang akumulasi topup sebulan >=200rb) (bagian POSM)======= -->
     <div id="modal-active-tu" class="w3-modal w3-animate-opacity"> <!-- class="w3-modal w3-animate-opacity" -->
         <div class="w3-modal-content w3-card-4">
             <header class="w3-container w3-orange modal-campaign modal1">
@@ -284,7 +274,7 @@
                                     <?php $nomor++; ?>
                                     <tr>
                                         <td><?php echo $nomor; ?></td>
-                                        <td><?php echo $kcp['retailerid']." - ".$kcp['first_name']." ".$kcp['last_name']; ?></td>
+                                        <td><?php echo $kcp['identity']; ?></td>
                                         <td><?php echo $kcp['freq']; ?></td>
                                         <td>
                                             <?php echo "Rp ".number_format($kcp['total'],0,",","."); ?>
@@ -298,4 +288,4 @@
             </div>
         </div>
     </div>
-    
+</div> 

@@ -22,11 +22,6 @@ $data['insentifPer_digitalProduct']    = $pengali_insentif * 150;
 $data['insentifPer_referralProduct']    = $pengali_insentif * 75000;
 
 // ############# Akuisisi #############
-
-$returned_active_kcp = $this->Insentif_model_kcc_external2018->get_active_kcp($Dist_id, $bulan, $tahun);
-$data['active_kcp']= $returned_active_kcp[0];
-$data['jumlah_active_kcp']= $returned_active_kcp[1];
-
 $returned_new_acq = $this->Insentif_model_kcc_external2018->get_new_acquisition_tu($Dist_id, $bulan, $tahun);
 $data['acq']= $returned_new_acq[0];
 
@@ -43,26 +38,22 @@ else { //jika tidak ada yang diakuisisi >=200rb bulan ini
 $all_acq = $this->Insentif_model_kcc_external2018->get_acquisition_list($Dist_id, $bulan, $tahun);
 $last_month_id = $this->Insentif_model_kcc_external2018->topup_list($Dist_id, $bulan, $tahun);
 
-// menyatukan nama depan & nama belakang
-// *nantinya bisa di concat dalam query
-$all_acq_name=[];
-$all_acq_belanja=[];
+// untuk menghilangkan index 'identity' agar bisa pakai array_intersect
+$all_acq_compare=[];
+$last_month_id_compare=[];
 for ($i=0; $i < count($all_acq); $i++) { 
-    array_push($all_acq_name, $all_acq[$i]['retailer_id']." - ".$all_acq[$i]['first_name']." ".$all_acq[$i]['last_name']);
-
-    // cek apakah yang terakuisisi bulan lalu, belanja pada bulan ini
-    for ($p=0; $p < count($last_month_id); $p++) { 
-        if ($last_month_id[$p]['retailerid'] == $all_acq[$i]['retailer_id']) {
-            array_push($all_acq_belanja, $all_acq[$i]['retailer_id']." - ".$all_acq[$i]['first_name']." ".$all_acq[$i]['last_name']);
-        }
-    }
+    array_push($all_acq_compare, $all_acq[$i]['identity']);
+}
+for ($p=0; $p < count($last_month_id); $p++) {
+        array_push($last_month_id_compare, $last_month_id[$p]['identity']);
 }
 
-
-
+// cek apakah yang terakuisisi bulan lalu, belanja pada bulan ini, data yang sama akan menjadi array $all_acq_belanja
+//array yang menambung list orang-orang yang terakuisisi bulan lalu & belanja di bulan ini
+$all_acq_belanja= array_intersect($all_acq_compare, $last_month_id_compare);
 
 //cari selisih $all_acq_name yang tidak ada dalam $all_acq_belanja
-$churn=array_diff($all_acq_name, $all_acq_belanja);
+$churn=array_diff($all_acq_compare, $all_acq_belanja);
 
 $data['churn'] = $churn;
 $data['net_acq'] = $data['jumlah_acq'] - count($churn);
@@ -153,5 +144,9 @@ $data['total_insentif_topup']= $data['total_insentif_unique_topup']+$data['total
 
 // ############# POSM #############
 $data['insentif_posm']= 10000;
+
+$returned_active_kcp = $this->Insentif_model_kcc_external2018->get_active_kcp($Dist_id, $bulan, $tahun);
+$data['active_kcp']= $returned_active_kcp[0];
+$data['jumlah_active_kcp']= $returned_active_kcp[1];
 
 $data['total_insentif_posm']= $data['insentif_posm']*$data['jumlah_active_kcp'];
