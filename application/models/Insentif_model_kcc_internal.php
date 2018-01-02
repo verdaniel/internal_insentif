@@ -45,7 +45,8 @@ class Insentif_model_kcc_internal extends CI_Model{
     }
 
     // untuk set target SPV (sebagai pengali)
-    function get_cvs_active($kcc_internal){$query = $this->db->query("SELECT 
+    function get_cvs_active($kcc_internal){
+        $query = $this->db->query("SELECT 
             count(beatguy_id) as jumlah_aktif
         FROM
             ipay.ipay_beatguy
