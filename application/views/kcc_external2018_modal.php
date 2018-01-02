@@ -193,17 +193,7 @@
                                         </td>
                                     </tr>
                                 <?php } ?>
-                                <?php foreach ($eCommerce as $data) { ?>
-                                    <?php $nomor++; ?>
-                                    <tr>
-                                        <td><?php echo $nomor; ?></td>
-                                        <td><?php echo $data['retailer_id']." - ".$data['first_name']." ".$data['last_name']; ?></td>
-                                        <td><?php echo $data['transaction_date']; ?></td>
-                                        <td>
-                                            <?php echo "E-Commerce"; ?>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
+                               
                                 <?php foreach ($digitalProduct as $data) { ?>
                                     <?php $nomor++; ?>
                                     <tr>
