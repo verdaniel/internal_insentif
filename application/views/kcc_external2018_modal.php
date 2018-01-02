@@ -193,7 +193,7 @@
                                             <?php echo "Referral Product"; ?>
                                         </td>
                                     </tr>
-                                <?php } ?>
+                                <?php } ?>                               
                                 <?php foreach ($digitalProduct as $data) { ?>
                                     <?php $nomor++; ?>
                                     <tr>
