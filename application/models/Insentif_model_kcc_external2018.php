@@ -1,24 +1,41 @@
 <?php
 class Insentif_model_kcc_external2018 extends CI_Model{
-// !!!!!! JANGAN LUPA (2017) GANTI TAHUN KE (2017) NANTI !!!!!!!!
+// !!!!!! JANGAN LUPA (2017) GANTI TAHUN KE (2018) NANTI !!!!!!!!
 
 // ###################### POSM ##############################
 
     function get_active_kcp($dist_id, $bulan, $tahun)
     {
-        $query = $this->db->query("SELECT 
-            CONCAT(p.retailerid, ' - ', c.first_name, ' ', c.last_name) AS identity,
-            COUNT(p.retailerid) AS freq,
-            SUM(p.amount) AS total
-        FROM
-            ipay_retailer_daily_payments p
-                INNER JOIN
-            ipay_retailer c ON p.retailerid = c.retailer_id
-                AND p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
-                AND c.distributer_id = '".$dist_id."'
-        GROUP BY p.retailerid
-        HAVING total >= 200000"
-        );
+        if($_SESSION["mode"] = "superkcc" || $_SESSION["mode"] = "superkccss")
+        {
+            $query = $this->db->query("SELECT 
+                CONCAT(p.retailerid, ' - ', c.first_name, ' ', c.last_name) AS identity,
+                COUNT(p.retailerid) AS freq,
+                SUM(p.amount) AS total
+            FROM
+                ipay_retailer_daily_payments p
+                    INNER JOIN
+                ipay_retailer c ON p.retailerid = c.retailer_id
+                    AND p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
+                    AND c.distributer_id in('".$dist_id."')
+            GROUP BY p.retailerid
+            HAVING total >= 200000"
+            );
+        }else{
+            $query = $this->db->query("SELECT 
+                CONCAT(p.retailerid, ' - ', c.first_name, ' ', c.last_name) AS identity,
+                COUNT(p.retailerid) AS freq,
+                SUM(p.amount) AS total
+            FROM
+                ipay_retailer_daily_payments p
+                    INNER JOIN
+                ipay_retailer c ON p.retailerid = c.retailer_id
+                    AND p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
+                    AND c.distributer_id = '".$dist_id."'
+            GROUP BY p.retailerid
+            HAVING total >= 200000"
+            );
+        }    
         $q_result= $query->result_array();
         
         $jumlah_KCP= count($q_result);
@@ -30,115 +47,207 @@ class Insentif_model_kcc_external2018 extends CI_Model{
 
 // ###################### AKUISISI ##############################
     function get_new_acquisition_tu($dist_id, $bulan, $tahun)
-    {
-        $query = $this->db->query("SELECT 
-            CONCAT(p.retailerid,
-                ' - ',
-                c.first_name,
-                ' ',
-                c.last_name) AS identity,
-            p.amount
-        FROM
-        ipay_retailer_daily_payments p
-        INNER JOIN
-                ipay_retailer c ON p.retailerid = c.retailer_id
-            INNER JOIN
-        (SELECT 
-            MIN(id) AS ids
-        FROM
-            ipay_retailer_daily_payments
-        GROUP BY retailerid) t1 ON t1.ids = p.id
-        AND p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
-        AND c.activated_date BETWEEN '2017-".$bulan."-01' AND '2017-".$bulan."-31'
-        AND c.distributer_id = '".$dist_id."'
-        having amount > '200000'"
-        );
-        $q_result= $query->result_array();
-        
-        $jumlah_KCP= count($q_result);
-    
-        $result=[];
-        array_push($result, $q_result, $jumlah_KCP);
-        return $result;
+    { 
+        if($_SESSION["mode"] = "superkcc" || $_SESSION["mode"] = "superkccss")
+        {   
+            $query = $this->db->query("SELECT 
+                CONCAT(p.retailerid,
+                    ' - ',
+                    c.first_name,
+                    ' ',
+                    c.last_name) AS identity,
+                p.amount
+                    FROM
+                    ipay_retailer_daily_payments p
+                    INNER JOIN
+                            ipay_retailer c ON p.retailerid = c.retailer_id
+                        INNER JOIN
+                    (SELECT 
+                        MIN(id) AS ids
+                    FROM
+                        ipay_retailer_daily_payments
+                    GROUP BY retailerid) t1 ON t1.ids = p.id
+                    WHERE p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
+                    AND c.activated_date BETWEEN '2017-".$bulan."-01' AND '2017-".$bulan."-31'
+                    AND c.distributer_id in('".$dist_id."')
+                    having amount > '200000'"
+            );
+        }else{
+            $query = $this->db->query("SELECT 
+                CONCAT(p.retailerid,
+                    ' - ',
+                    c.first_name,
+                    ' ',
+                    c.last_name) AS identity,
+                p.amount
+                    FROM
+                    ipay_retailer_daily_payments p
+                    INNER JOIN
+                            ipay_retailer c ON p.retailerid = c.retailer_id
+                        INNER JOIN
+                    (SELECT 
+                        MIN(id) AS ids
+                    FROM
+                        ipay_retailer_daily_payments
+                    GROUP BY retailerid) t1 ON t1.ids = p.id
+                    WHERE p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
+                    AND c.activated_date BETWEEN '2017-".$bulan."-01' AND '2017-".$bulan."-31'
+                    AND c.distributer_id = '".$dist_id."'
+                    having amount > '200000'"
+            );
+        }
+            $q_result= $query->result_array();
+            $jumlah_KCP= count($q_result);
+            $result=[];
+            array_push($result, $q_result, $jumlah_KCP);
+            return $result;
     }
-
     //query untuk dapat list yang terakuisisi satu bulan sebelum bulan terpilih
     // dengan TopUp >=200rb maupun tidak
     function get_acquisition_list($dist_id, $bulan, $tahun) 
     {
-        $query = $this->db->query("SELECT 
-            CONCAT(retailer_id,
-            ' - ',
-            first_name,
-            ' ',
-            last_name) AS identity
-        FROM
-            ipay_retailer
-        WHERE
-            distributer_id = '".$dist_id."'
-        AND activated_date Between '2017-".($bulan-1)."-01' AND '2017-".($bulan-1)."-31'
-        AND status = '1'"
-        );
+        if($_SESSION["mode"] = "superkcc" || $_SESSION["mode"] = "superkccss")
+        { 
+            $query = $this->db->query("SELECT 
+                CONCAT(retailer_id,
+                ' - ',
+                first_name,
+                ' ',
+                last_name) AS identity
+            FROM
+                ipay_retailer
+            WHERE
+                distributer_id in('".$dist_id."')
+            AND activated_date Between '2017-".($bulan-1)."-01' AND '2017-".($bulan-1)."-31'
+            AND status = '1'"
+            );
+        }else{
+            $query = $this->db->query("SELECT 
+                CONCAT(retailer_id,
+                ' - ',
+                first_name,
+                ' ',
+                last_name) AS identity
+            FROM
+                ipay_retailer
+            WHERE
+                distributer_id = '".$dist_id."'
+            AND activated_date Between '2017-".($bulan-1)."-01' AND '2017-".($bulan-1)."-31'
+            AND status = '1'"
+            );
+        }    
         return $query->result_array();
     }
 
     //list KCP yang topup pada bulan terpilih (untuk hitung churn)
     function topup_list($dist_id, $bulan, $tahun) 
     {
-        
-        $query = $this->db->query("SELECT DISTINCT
-            (CONCAT(retailer_id,
-            ' - ',
-            first_name,
-            ' ',
-            last_name)) AS identity
-        FROM
-            ipay_retailer_daily_payments a
-        INNER JOIN
-            ipay_retailer b ON a.retailerid = b.retailer_id
-        WHERE
-            dateofpayment BETWEEN '2017-".($bulan)."-01 00:00:00'  AND '2017-".($bulan)."-31 23:59:59'
-                AND b.distributer_id = '".$dist_id."'"
-        );
-        // $result = $query->result_array();
-        // print_r($result);
+        if($_SESSION["mode"] = "superkcc" || $_SESSION["mode"] = "superkccss")
+        {   
+            $query = $this->db->query("SELECT DISTINCT
+                (CONCAT(retailer_id,
+                ' - ',
+                first_name,
+                ' ',
+                last_name)) AS identity
+            FROM
+                ipay_retailer_daily_payments a
+            INNER JOIN
+                ipay_retailer b ON a.retailerid = b.retailer_id
+            WHERE
+                dateofpayment BETWEEN '2017-".($bulan)."-01 00:00:00'  AND '2017-".($bulan)."-31 23:59:59'
+                    AND b.distributer_id in('".$dist_id."')"
+            );
+            // $result = $query->result_array();
+            // print_r($result);
+        }else{
+            $query = $this->db->query("SELECT DISTINCT
+                (CONCAT(retailer_id,
+                ' - ',
+                first_name,
+                ' ',
+                last_name)) AS identity
+            FROM
+                ipay_retailer_daily_payments a
+            INNER JOIN
+                ipay_retailer b ON a.retailerid = b.retailer_id
+            WHERE
+                dateofpayment BETWEEN '2017-".($bulan)."-01 00:00:00'  AND '2017-".($bulan)."-31 23:59:59'
+                    AND b.distributer_id = '".$dist_id."'"
+            );
+        }    
         return $query->result_array();
     }
 
 // ########################### TRANSACTION ###########################
     function get_transaction($dist_id, $bulan, $tahun)
-    {        
-        $query = $this->db->query("SELECT 
-            a.transaction_type,
-            a.transaction_date,
-            a.retailer_id,
-            b.first_name,
-            b.last_name
-        FROM
-            ipay_transactions a
-                INNER JOIN
-            ipay_retailer b ON a.retailer_id = b.retailer_id
-        WHERE
-            transaction_date_only BETWEEN '2017-".$bulan."-01' AND '2017-".$bulan."-31'
-                AND a.cancelled_reference_id IS NULL
-                AND a.payment_status = 'received'
-                AND a.order_status = 'success'
-                AND a.distributer_id = '".$dist_id."'
-                AND transaction_type IN ('MR' , 'TO',
-                'MT',
-                #'EP',
-                'RP',
-                'PP',
-                'EB',
-                'MF',
-                'IP',
-                'KP',
-                'OP',
-                'DT',
-                'DC',
-                'GV')
-                "
-        );
+    {   
+        if($_SESSION["mode"] = "superkcc" || $_SESSION["mode"] = "superkccss")
+        {        
+            $query = $this->db->query("SELECT 
+                a.transaction_type,
+                a.transaction_date,
+                a.retailer_id,
+                b.first_name,
+                b.last_name
+            FROM
+                ipay_transactions a
+                    INNER JOIN
+                ipay_retailer b ON a.retailer_id = b.retailer_id
+            WHERE
+                transaction_date_only BETWEEN '2017-".$bulan."-01' AND '2017-".$bulan."-31'
+                    AND a.cancelled_reference_id IS NULL
+                    AND a.payment_status = 'received'
+                    AND a.order_status = 'success'
+                    AND a.distributer_id in('".$dist_id."')
+                    AND transaction_type IN ('MR' , 'TO',
+                    'MT',
+                    #'EP',
+                    'RP',
+                    'PP',
+                    'EB',
+                    'MF',
+                    'IP',
+                    'KP',
+                    'OP',
+                    'DT',
+                    'DC',
+                    'GV')
+                    "
+            );
+        }else{
+            $query = $this->db->query("SELECT 
+                a.transaction_type,
+                a.transaction_date,
+                a.retailer_id,
+                b.first_name,
+                b.last_name
+            FROM
+                ipay_transactions a
+                    INNER JOIN
+                ipay_retailer b ON a.retailer_id = b.retailer_id
+            WHERE
+                transaction_date_only BETWEEN '2017-".$bulan."-01' AND '2017-".$bulan."-31'
+                    AND a.cancelled_reference_id IS NULL
+                    AND a.payment_status = 'received'
+                    AND a.order_status = 'success'
+                    AND a.distributer_id = '".$dist_id."'
+                    AND transaction_type IN ('MR' , 'TO',
+                    'MT',
+                    #'EP',
+                    'RP',
+                    'PP',
+                    'EB',
+                    'MF',
+                    'IP',
+                    'KP',
+                    'OP',
+                    'DT',
+                    'DC',
+                    'GV')
+                    "
+            );
+        }   
         $q_result= $query->result_array();
         $jumlah_KCP= count($q_result);
         // $array_MR=[]; //isi pulsa
@@ -228,21 +337,40 @@ class Insentif_model_kcc_external2018 extends CI_Model{
     function get_topup($dist_id, $bulan, $tahun)
     {
         // !!!!!! JANGAN LUPA GANTI TAHUN KE 2018 NANTI !!!!!!!!
-        $query = $this->db->query("SELECT 
-            p.retailerid,
-            p.amount,
-            c.first_name,
-            c.last_name,
-            p.dateofpayment
-        FROM
-            ipay_retailer_daily_payments p
-                INNER JOIN
-            ipay_retailer c ON p.retailerid = c.retailer_id
-        WHERE
-            p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
-                AND c.distributer_id = '".$dist_id."'
-        HAVING amount >= 200000"
-        );
+        if($_SESSION["mode"] = "superkcc" || $_SESSION["mode"] = "superkccss")
+        {        
+            $query = $this->db->query("SELECT 
+                p.retailerid,
+                p.amount,
+                c.first_name,
+                c.last_name,
+                p.dateofpayment
+            FROM
+                ipay_retailer_daily_payments p
+                    INNER JOIN
+                ipay_retailer c ON p.retailerid = c.retailer_id
+            WHERE
+                p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
+                    AND c.distributer_id in('".$dist_id."')
+            HAVING amount >= 200000"
+            );
+        }else{
+            $query = $this->db->query("SELECT 
+                p.retailerid,
+                p.amount,
+                c.first_name,
+                c.last_name,
+                p.dateofpayment
+            FROM
+                ipay_retailer_daily_payments p
+                    INNER JOIN
+                ipay_retailer c ON p.retailerid = c.retailer_id
+            WHERE
+                p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
+                    AND c.distributer_id in= '".$dist_id."'
+            HAVING amount >= 200000"
+            );
+        }    
         $q_result= $query->result_array();    
         $jumlah_KCP= count($q_result);  
         

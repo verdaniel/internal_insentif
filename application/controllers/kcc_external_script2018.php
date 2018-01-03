@@ -3,7 +3,7 @@
 // ############# Set Nilai Insentif Disini ! ############
 
 //kalau kcc eksternal porsi insentifnya 75%
-if($_SESSION['mode']== "superkcc" || $_SESSION['mode']== "superkccss"){
+if($_SESSION['mode']== "superkcc" || $_SESSION['mode']== "superkccss"){  
     $pengali_insentif = 1;
 }
 

@@ -221,13 +221,20 @@ class Insentif_cont extends CI_Controller {
         else{
             $data['super_kcc_id'] = $super_kcc_id;
         }
-
+        $Dist_id = 'D2B';
         
         $data['bawahan_super_kcc']= $this->Insentif_model_super_kcc->get_kcc_under_super_kcc($super_kcc_id);
-        for ($i=0; $i < $data['bawahan_super_kcc'][1]; $i++) { 
-            $Dist_id= $data['bawahan_super_kcc'][0][$i]['distributor_id'];
+            // foreach($data['bawahan_super_kcc'] as $bwh){
+            //     $bwh['distributor_id'] =
+            // }
+            $Dist_id = $data['bawahan_super_kcc'][0][0]["distributor_id"];
+               foreach($data['bawahan_super_kcc'][0] as $d){
+                   
+                   $Dist_id = $Dist_id."','".$d["distributor_id"];
+               } 
+            print_r($Dist_id);
             include 'kcc_external_script2018.php';
-        }
+
         
         $this->load->view('header');
         $this->load->view('Navbar',$data);
@@ -261,11 +268,10 @@ class Insentif_cont extends CI_Controller {
             $data['tahun'] = $tahun;
         }
         $data['super_kcc']= $this->Insentif_model_super_kcc->get_super_kcc_name($super_kcc_id);
+        
         $data['bawahan_super_kcc']= $this->Insentif_model_super_kcc->get_kcc_under_super_kcc($super_kcc_id);
-        for ($i=0; $i < $data['bawahan_super_kcc'][1]; $i++) { 
-            $Dist_id= $data['bawahan_super_kcc'][0][$i]['distributor_id'];
             include 'kcc_external_script2018.php';
-        }
+        
         
         $this->load->view('header');
         $this->load->view('Navbar',$data);

@@ -35,6 +35,7 @@ class Insentif_model_super_kcc extends CI_model{
         $result=[];
         array_push($result,$q_result,$jumlah_KCC_bawahan);
         return $result;
+
     }
 
     function get_super_kcc_name($super_kcc_id)
@@ -50,4 +51,6 @@ class Insentif_model_super_kcc extends CI_model{
         );
         return $query->result_array();
     }
+
+    
 }
