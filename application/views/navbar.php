@@ -66,6 +66,6 @@
     </nav>
 
     <div id="loader" class="loader"></div> 
-    <div id="loader2" class="loader"></div> 
+    <!-- <div id="loader2" class="loader"></div>  -->
 
     <div class="kontener***">
