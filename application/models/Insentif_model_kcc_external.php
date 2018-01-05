@@ -234,7 +234,7 @@ class Insentif_model_kcc_external extends CI_Model{
                 LEFT JOIN
             ipay_retailer b ON (b.retailer_id = a.retailer_id)
         WHERE
-            transaction_date_only BETWEEN '2017-".$bulan."-01' AND '2017-".$bulan."-31'
+            transaction_date_only BETWEEN '".$tahun."-".$bulan."-01' AND '".$tahun."-".$bulan."-31'
                 AND b.distributer_id = '".$dist_id."'
                 AND cancelled_reference_id IS NULL
                 AND payment_status = 'received'
@@ -260,7 +260,7 @@ class Insentif_model_kcc_external extends CI_Model{
             a.transactiontype = 'LOANSUBMISSION'
                 AND a.status = 'SUCCESS'
                 AND c.distributer_id = '".$dist_id."'
-                AND b.TRANSACTION_DATE_only BETWEEN '2017-".$bulan."-01' AND '2017-".$bulan."-31'
+                AND b.TRANSACTION_DATE_only BETWEEN '".$tahun."-".$bulan."-01' AND '".$tahun."-".$bulan."-31'
         GROUP BY (c.retailer_id)"
         );
 

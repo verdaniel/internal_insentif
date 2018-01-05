@@ -6,7 +6,6 @@ $(document).ready(function(){
     $(".datatable").dataTable();
     $(".person_box").each(function(){
         var isi=$(this).html();
-        console.log("woiwowiowiwoiwoiwoiwoiw");
         if(isi >= 30){
             var container=$(this).parent();
             container.css("background-color","palegreen");

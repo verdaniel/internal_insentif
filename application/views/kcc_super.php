@@ -1,5 +1,4 @@
 
-
 <div style="display:none;" id="myDiv" class="animate-bottom fixed-position">
     <div class="col-md-12" style="color:red;text-align:center;">
         <?php 

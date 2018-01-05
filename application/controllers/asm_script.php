@@ -50,4 +50,4 @@ for ($i=0; $i < count($data['cvs_returned']); $i++) {
 $data['kcc_counts']= array_count_values($list_disttributor);
 
 //dapatkan total topup cvs dalam "sebulan terpilih"
-$data['cvs_tu']= $this->Insentif_model_asm->get_cvs_tu($bulan); 
+$data['cvs_tu']= $this->Insentif_model_asm->get_cvs_tu($bulan, $tahun); 

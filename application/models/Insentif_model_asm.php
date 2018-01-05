@@ -73,7 +73,7 @@ class Insentif_model_asm extends CI_Model{
         return $query->result_array();
     }
 
-    function get_cvs_tu($bulan){
+    function get_cvs_tu($bulan,$tahun){
         
     $query = $this->db->query("SELECT 
             beatguy_id, b.total_tu
@@ -85,7 +85,7 @@ class Insentif_model_asm extends CI_Model{
             FROM
                 ipay_retailer_daily_payments
             WHERE
-                dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
+                dateofpayment BETWEEN '".$tahun."-".$bulan."-01 00:00:00' AND '".$tahun."-".$bulan."-31 23:59:59'
                     AND beatguyid LIKE 'B%'
                     AND distributorid IN ('D0J' , 'D0U', 'D1F', 'D1S', 'D1T', 'D0R', 'D0Y', 'D0D', 'D0G', 'D1X', 'D0C', 'D0E', 'D0N', 'D1R', 'D0T', 'D0I', 'D1G', 'D0F', 'D0H')
             GROUP BY beatguyid) b ON a.beatguy_id = b.beatguyid

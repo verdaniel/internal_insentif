@@ -221,19 +221,15 @@ class Insentif_cont extends CI_Controller {
         else{
             $data['super_kcc_id'] = $super_kcc_id;
         }
-        $Dist_id = 'D2B';
         
         $data['bawahan_super_kcc']= $this->Insentif_model_super_kcc->get_kcc_under_super_kcc($super_kcc_id);
-            // foreach($data['bawahan_super_kcc'] as $bwh){
-            //     $bwh['distributor_id'] =
-            // }
-            $Dist_id = $data['bawahan_super_kcc'][0][0]["distributor_id"];
-               foreach($data['bawahan_super_kcc'][0] as $d){
-                   
-                   $Dist_id = $Dist_id."','".$d["distributor_id"];
-               } 
-            print_r($Dist_id);
-            include 'kcc_external_script2018.php';
+        
+        $Dist_id = $data['bawahan_super_kcc'][0][0]["distributor_id"];
+        foreach($data['bawahan_super_kcc'][0] as $d){
+            
+            $Dist_id = $Dist_id."','".$d["distributor_id"];
+        } 
+        include 'kcc_external_script2018.php';
 
         
         $this->load->view('header');

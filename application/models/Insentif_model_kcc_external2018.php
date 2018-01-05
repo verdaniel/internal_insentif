@@ -1,12 +1,12 @@
 <?php
 class Insentif_model_kcc_external2018 extends CI_Model{
-// !!!!!! JANGAN LUPA (2017) GANTI TAHUN KE (2018) NANTI !!!!!!!!
-
+// !!!!!! JANGAN LUPA (".$tahun.") GANTI TAHUN KE (2018) NANTI !!!!!!!!
+ 
 // ###################### POSM ##############################
 
     function get_active_kcp($dist_id, $bulan, $tahun)
     {
-        if($_SESSION["mode"] = "superkcc" || $_SESSION["mode"] = "superkccss")
+        if($_SESSION["mode"] == "superkcc" || $_SESSION["mode"] == "superkccss")
         {
             $query = $this->db->query("SELECT 
                 CONCAT(p.retailerid, ' - ', c.first_name, ' ', c.last_name) AS identity,
@@ -16,7 +16,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
                 ipay_retailer_daily_payments p
                     INNER JOIN
                 ipay_retailer c ON p.retailerid = c.retailer_id
-                    AND p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
+                    AND p.dateofpayment BETWEEN '".$tahun."-".$bulan."-01 00:00:00' AND '".$tahun."-".$bulan."-31 23:59:59'
                     AND c.distributer_id in('".$dist_id."')
             GROUP BY p.retailerid
             HAVING total >= 200000"
@@ -30,7 +30,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
                 ipay_retailer_daily_payments p
                     INNER JOIN
                 ipay_retailer c ON p.retailerid = c.retailer_id
-                    AND p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
+                    AND p.dateofpayment BETWEEN '".$tahun."-".$bulan."-01 00:00:00' AND '".$tahun."-".$bulan."-31 23:59:59'
                     AND c.distributer_id = '".$dist_id."'
             GROUP BY p.retailerid
             HAVING total >= 200000"
@@ -47,8 +47,8 @@ class Insentif_model_kcc_external2018 extends CI_Model{
 
 // ###################### AKUISISI ##############################
     function get_new_acquisition_tu($dist_id, $bulan, $tahun)
-    { 
-        if($_SESSION["mode"] = "superkcc" || $_SESSION["mode"] = "superkccss")
+    { echo "mode dalam model = ".$_SESSION["mode"];
+        if($_SESSION["mode"] == "superkcc" || $_SESSION["mode"] == "superkccss")
         {   
             $query = $this->db->query("SELECT 
                 CONCAT(p.retailerid,
@@ -67,8 +67,8 @@ class Insentif_model_kcc_external2018 extends CI_Model{
                     FROM
                         ipay_retailer_daily_payments
                     GROUP BY retailerid) t1 ON t1.ids = p.id
-                    WHERE p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
-                    AND c.activated_date BETWEEN '2017-".$bulan."-01' AND '2017-".$bulan."-31'
+                    WHERE p.dateofpayment BETWEEN '".$tahun."-".$bulan."-01 00:00:00' AND '".$tahun."-".$bulan."-31 23:59:59'
+                    AND c.activated_date BETWEEN '".$tahun."-".$bulan."-01' AND '".$tahun."-".$bulan."-31'
                     AND c.distributer_id in('".$dist_id."')
                     having amount > '200000'"
             );
@@ -90,8 +90,8 @@ class Insentif_model_kcc_external2018 extends CI_Model{
                     FROM
                         ipay_retailer_daily_payments
                     GROUP BY retailerid) t1 ON t1.ids = p.id
-                    WHERE p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
-                    AND c.activated_date BETWEEN '2017-".$bulan."-01' AND '2017-".$bulan."-31'
+                    WHERE p.dateofpayment BETWEEN '".$tahun."-".$bulan."-01 00:00:00' AND '".$tahun."-".$bulan."-31 23:59:59'
+                    AND c.activated_date BETWEEN '".$tahun."-".$bulan."-01' AND '".$tahun."-".$bulan."-31'
                     AND c.distributer_id = '".$dist_id."'
                     having amount > '200000'"
             );
@@ -106,7 +106,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
     // dengan TopUp >=200rb maupun tidak
     function get_acquisition_list($dist_id, $bulan, $tahun) 
     {
-        if($_SESSION["mode"] = "superkcc" || $_SESSION["mode"] = "superkccss")
+        if($_SESSION["mode"] == "superkcc" || $_SESSION["mode"] == "superkccss")
         { 
             $query = $this->db->query("SELECT 
                 CONCAT(retailer_id,
@@ -118,7 +118,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
                 ipay_retailer
             WHERE
                 distributer_id in('".$dist_id."')
-            AND activated_date Between '2017-".($bulan-1)."-01' AND '2017-".($bulan-1)."-31'
+            AND activated_date Between '".$tahun."-".($bulan-1)."-01' AND '".$tahun."-".($bulan-1)."-31'
             AND status = '1'"
             );
         }else{
@@ -132,7 +132,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
                 ipay_retailer
             WHERE
                 distributer_id = '".$dist_id."'
-            AND activated_date Between '2017-".($bulan-1)."-01' AND '2017-".($bulan-1)."-31'
+            AND activated_date Between '".$tahun."-".($bulan-1)."-01' AND '".$tahun."-".($bulan-1)."-31'
             AND status = '1'"
             );
         }    
@@ -142,7 +142,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
     //list KCP yang topup pada bulan terpilih (untuk hitung churn)
     function topup_list($dist_id, $bulan, $tahun) 
     {
-        if($_SESSION["mode"] = "superkcc" || $_SESSION["mode"] = "superkccss")
+        if($_SESSION["mode"] == "superkcc" || $_SESSION["mode"] == "superkccss")
         {   
             $query = $this->db->query("SELECT DISTINCT
                 (CONCAT(retailer_id,
@@ -155,7 +155,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
             INNER JOIN
                 ipay_retailer b ON a.retailerid = b.retailer_id
             WHERE
-                dateofpayment BETWEEN '2017-".($bulan)."-01 00:00:00'  AND '2017-".($bulan)."-31 23:59:59'
+                dateofpayment BETWEEN '".$tahun."-".($bulan)."-01 00:00:00'  AND '".$tahun."-".($bulan)."-31 23:59:59'
                     AND b.distributer_id in('".$dist_id."')"
             );
             // $result = $query->result_array();
@@ -172,7 +172,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
             INNER JOIN
                 ipay_retailer b ON a.retailerid = b.retailer_id
             WHERE
-                dateofpayment BETWEEN '2017-".($bulan)."-01 00:00:00'  AND '2017-".($bulan)."-31 23:59:59'
+                dateofpayment BETWEEN '".$tahun."-".($bulan)."-01 00:00:00'  AND '".$tahun."-".($bulan)."-31 23:59:59'
                     AND b.distributer_id = '".$dist_id."'"
             );
         }    
@@ -182,7 +182,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
 // ########################### TRANSACTION ###########################
     function get_transaction($dist_id, $bulan, $tahun)
     {   
-        if($_SESSION["mode"] = "superkcc" || $_SESSION["mode"] = "superkccss")
+        if($_SESSION["mode"] == "superkcc" || $_SESSION["mode"] == "superkccss")
         {        
             $query = $this->db->query("SELECT 
                 a.transaction_type,
@@ -195,7 +195,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
                     INNER JOIN
                 ipay_retailer b ON a.retailer_id = b.retailer_id
             WHERE
-                transaction_date_only BETWEEN '2017-".$bulan."-01' AND '2017-".$bulan."-31'
+                transaction_date_only BETWEEN '".$tahun."-".$bulan."-01' AND '".$tahun."-".$bulan."-31'
                     AND a.cancelled_reference_id IS NULL
                     AND a.payment_status = 'received'
                     AND a.order_status = 'success'
@@ -227,7 +227,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
                     INNER JOIN
                 ipay_retailer b ON a.retailer_id = b.retailer_id
             WHERE
-                transaction_date_only BETWEEN '2017-".$bulan."-01' AND '2017-".$bulan."-31'
+                transaction_date_only BETWEEN '".$tahun."-".$bulan."-01' AND '".$tahun."-".$bulan."-31'
                     AND a.cancelled_reference_id IS NULL
                     AND a.payment_status = 'received'
                     AND a.order_status = 'success'
@@ -337,7 +337,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
     function get_topup($dist_id, $bulan, $tahun)
     {
         // !!!!!! JANGAN LUPA GANTI TAHUN KE 2018 NANTI !!!!!!!!
-        if($_SESSION["mode"] = "superkcc" || $_SESSION["mode"] = "superkccss")
+        if($_SESSION["mode"] == "superkcc" || $_SESSION["mode"] == "superkccss")
         {        
             $query = $this->db->query("SELECT 
                 p.retailerid,
@@ -350,7 +350,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
                     INNER JOIN
                 ipay_retailer c ON p.retailerid = c.retailer_id
             WHERE
-                p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
+                p.dateofpayment BETWEEN '".$tahun."-".$bulan."-01 00:00:00' AND '".$tahun."-".$bulan."-31 23:59:59'
                     AND c.distributer_id in('".$dist_id."')
             HAVING amount >= 200000"
             );
@@ -366,7 +366,7 @@ class Insentif_model_kcc_external2018 extends CI_Model{
                     INNER JOIN
                 ipay_retailer c ON p.retailerid = c.retailer_id
             WHERE
-                p.dateofpayment BETWEEN '2017-".$bulan."-01 00:00:00' AND '2017-".$bulan."-31 23:59:59'
+                p.dateofpayment BETWEEN '".$tahun."-".$bulan."-01 00:00:00' AND '".$tahun."-".$bulan."-31 23:59:59'
                     AND c.distributer_id in= '".$dist_id."'
             HAVING amount >= 200000"
             );
